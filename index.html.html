@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de Scripts Blender — mK</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Helvetica+Neue:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000000;
+    color: #F3F3F3;
+    font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    padding: 40px 30px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .header {
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .header .brand {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #7C16DB;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: #F3F3F3;
+  }
+
+  .header .subtitle {
+    font-size: 14px;
+    color: #888;
+    font-weight: 300;
+  }
+
+  /* SEARCH */
+  .search-wrap {
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .search {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+    padding: 14px 18px 14px 44px;
+    color: #F3F3F3;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    transition: border-color 0.2s;
+  }
+
+  .search:focus {
+    outline: none;
+    border-color: #7C16DB;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    font-size: 14px;
+  }
+
+  /* CATEGORY FILTERS */
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid #1a1a1a;
+    color: #888;
+    padding: 8px 16px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: #7C16DB;
+    color: #F3F3F3;
+  }
+
+  .filter-btn.active {
+    background: #7C16DB;
+    border-color: #7C16DB;
+    color: #fff;
+  }
+
+  /* SCRIPT CARDS */
+  .script {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .script:hover {
+    border-color: #2a2a2a;
+  }
+
+  .script.hidden {
+    display: none;
+  }
+
+  .script-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #1a1a1a;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .script-header-content {
+    flex: 1;
+  }
+
+  .script-category {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  .cat-material { background: rgba(124, 22, 219, 0.15); color: #7C16DB; }
+  .cat-mesh { background: rgba(220, 12, 159, 0.15); color: #DC0C9F; }
+  .cat-uv { background: rgba(18, 145, 226, 0.15); color: #1291E2; }
+  .cat-texture { background: rgba(251, 91, 18, 0.15); color: #FB5B12; }
+  .cat-cleanup { background: rgba(0, 252, 138, 0.15); color: #00FC8A; }
+  .cat-utility { background: rgba(232, 241, 2, 0.15); color: #E8F102; }
+
+  .script-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #F3F3F3;
+  }
+
+  .script-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    color: #888;
+    padding: 8px 14px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .copy-btn:hover {
+    border-color: #7C16DB;
+    color: #F3F3F3;
+  }
+
+  .copy-btn.copied {
+    border-color: #00FC8A;
+    color: #00FC8A;
+  }
+
+  .script-body {
+    padding: 0;
+  }
+
+  .script-notes {
+    padding: 16px 24px;
+    background: #060606;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.6;
+  }
+
+  .script-notes strong {
+    color: #E8F102;
+    font-weight: 500;
+  }
+
+  .script-notes code {
+    background: #1a1a1a;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #DC0C9F;
+  }
+
+  pre {
+    background: #050505;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 0;
+  }
+
+  code.script-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #E0E0E0;
+    white-space: pre;
+  }
+
+  /* SYNTAX HIGHLIGHT (simples) */
+  .keyword { color: #DC0C9F; }
+  .string { color: #00FC8A; }
+  .comment { color: #555; font-style: italic; }
+  .function { color: #1291E2; }
+  .number { color: #FB5B12; }
+
+  /* INSTRUCTIONS BLOCK */
+  .instructions {
+    background: linear-gradient(135deg, #0a0a0a 0%, #0f0a14 100%);
+    border: 1px solid #1a1a1a;
+    border-left: 3px solid #7C16DB;
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 50px;
+  }
+
+  .instructions h3 {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #7C16DB;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .instructions ol {
+    margin-left: 18px;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .instructions ol li {
+    margin-bottom: 6px;
+  }
+
+  .instructions code {
+    background: #1a1a1a;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #DC0C9F;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 80px;
+    padding-top: 30px;
+    border-top: 1px solid #1a1a1a;
+    text-align: center;
+    color: #444;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .footer .tagline {
+    color: #7C16DB;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  /* COUNT */
+  .results-count {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">mk|3dlabs · scripts library</div>
+    <h1>Biblioteca de Scripts Blender</h1>
+    <div class="subtitle">Coleção de scripts Python para automação de tarefas no Blender — workflow CAD/visualização de produto</div>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div class="instructions">
+    <h3>Como usar</h3>
+    <ol>
+      <li>No Blender, abra a aba <code>Scripting</code> no topo</li>
+      <li>Clique em <code>+ New</code> para criar um novo script</li>
+      <li>Cole o código copiado desta biblioteca</li>
+      <li>Ajuste as variáveis no topo do script se necessário</li>
+      <li>Clique em <code>▶ Run Script</code> para executar</li>
+      <li>Para ver o output, abra <code>Window → Toggle System Console</code></li>
+    </ol>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" class="search" id="search" placeholder="Buscar script por nome ou descrição...">
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="filter-btn active" data-cat="all">Todos</button>
+    <button class="filter-btn" data-cat="material">Materiais</button>
+    <button class="filter-btn" data-cat="mesh">Meshes</button>
+    <button class="filter-btn" data-cat="uv">UV</button>
+    <button class="filter-btn" data-cat="texture">Texturas</button>
+    <button class="filter-btn" data-cat="cleanup">Limpeza</button>
+    <button class="filter-btn" data-cat="utility">Utilitários</button>
+  </div>
+
+  <div class="results-count" id="results-count">12 scripts disponíveis</div>
+
+  <!-- SCRIPT 1: Achar materiais com texturas faltantes -->
+  <div class="script" data-cat="texture" data-keywords="textura faltante missing material objetos buscar">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-texture">Texturas</div>
+        <div class="script-title">Encontrar objetos com texturas faltantes</div>
+        <div class="script-desc">Lista quais materiais e objetos usam texturas que não foram encontradas no caminho original (típico de imports do DeltaGen).</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Configurar:</strong> Edite a lista <code>missing</code> com os nomes parciais das texturas faltantes.
+    </div>
+    <pre><code class="script-code">import bpy
+
+missing = ['COL_LedOff_GEN_D', 'MY26_GEM_VCS_Home_Portuguese_Squared']
+
+for mat in bpy.data.materials:
+    if mat.use_nodes:
+        for node in mat.node_tree.nodes:
+            if node.type == 'TEX_IMAGE':
+                if node.image and any(m in node.image.name for m in missing):
+                    users = [obj.name for obj in bpy.data.objects 
+                             if mat.name in [s.material.name for s in obj.material_slots if s.material]]
+                    print(f"Material: {mat.name} | Objetos: {users}")</code></pre>
+  </div>
+
+  <!-- SCRIPT 2: Remover textura faltante -->
+  <div class="script" data-cat="texture" data-keywords="remover textura faltante limpar nodo imagem">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-texture">Texturas</div>
+        <div class="script-title">Remover referência de textura faltante</div>
+        <div class="script-desc">Desconecta nodes Image Texture que apontam para arquivos não encontrados, eliminando os erros de pack.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Configurar:</strong> Substitua <code>'COL_LedOff_GEN_D'</code> pelo nome parcial da textura a remover.
+    </div>
+    <pre><code class="script-code">import bpy
+
+for mat in bpy.data.materials:
+    if mat.use_nodes:
+        for node in mat.node_tree.nodes:
+            if node.type == 'TEX_IMAGE':
+                if node.image and 'COL_LedOff_GEN_D' in node.image.name:
+                    node.image = None
+                    print(f"Textura removida de: {mat.name}")</code></pre>
+  </div>
+
+  <!-- SCRIPT 3: Substituir textura por placeholder -->
+  <div class="script" data-cat="texture" data-keywords="placeholder substituir textura imagem">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-texture">Texturas</div>
+        <div class="script-title">Substituir textura faltante por placeholder</div>
+        <div class="script-desc">Cria uma imagem em branco e substitui as texturas faltantes — útil quando o material precisa permanecer funcional.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <pre><code class="script-code">import bpy
+
+placeholder = bpy.data.images.new("placeholder_led", width=256, height=256)
+
+for mat in bpy.data.materials:
+    if mat.use_nodes:
+        for node in mat.node_tree.nodes:
+            if node.type == 'TEX_IMAGE':
+                if node.image and 'COL_LedOff_GEN_D' in node.image.name:
+                    node.image = placeholder
+                    print(f"Substituído em: {mat.name}")</code></pre>
+  </div>
+
+  <!-- SCRIPT 4: Substituir material por prefixo -->
+  <div class="script" data-cat="material" data-keywords="substituir material prefixo trocar bulk batch">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-material">Materiais</div>
+        <div class="script-title">Substituir materiais por prefixo</div>
+        <div class="script-desc">Substitui todos os materiais que começam com um prefixo específico por um material destino. Ideal para consolidar variações de um mesmo material CAD.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Configurar:</strong> Edite <code>prefixo_origem</code> e <code>material_destino</code> com os nomes desejados. O material destino precisa existir na cena.
+    </div>
+    <pre><code class="script-code">import bpy
+
+prefixo_origem = "PLS_JetBlack_600R_"
+material_destino = "Plastico"
+
+mat_destino = bpy.data.materials.get(material_destino)
+if not mat_destino:
+    print(f"Material '{material_destino}' não encontrado na cena!")
+else:
+    count = 0
+    materiais_afetados = set()
+    for obj in bpy.data.objects:
+        for slot in obj.material_slots:
+            if slot.material and slot.material.name.startswith(prefixo_origem):
+                materiais_afetados.add(slot.material.name)
+                slot.material = mat_destino
+                count += 1
+
+    print("Materiais substituídos:")
+    for m in sorted(materiais_afetados):
+        print(f"  {m}")
+    print(f"\nTotal: {count} slots substituídos.")</code></pre>
+  </div>
+
+  <!-- SCRIPT 5: Consolidar duplicados com sufixo -->
+  <div class="script" data-cat="material" data-keywords="consolidar duplicado sufixo 001 002 limpar materiais">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-material">Materiais</div>
+        <div class="script-title">Consolidar materiais duplicados (.001, .002)</div>
+        <div class="script-desc">Detecta materiais com sufixos numéricos e consolida tudo no material base original.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <pre><code class="script-code">import bpy
+
+def consolidar_materiais():
+    count = 0
+    materiais_consolidados = {}
+
+    for mat in bpy.data.materials:
+        if '.' in mat.name:
+            partes = mat.name.rsplit('.', 1)
+            if partes[1].isdigit():
+                nome_base = partes[0]
+                mat_base = bpy.data.materials.get(nome_base)
+                if mat_base:
+                    materiais_consolidados[mat.name] = mat_base
+
+    for obj in bpy.data.objects:
+        for slot in obj.material_slots:
+            if slot.material and slot.material.name in materiais_consolidados:
+                original = materiais_consolidados[slot.material.name]
+                print(f"{obj.name}: {slot.material.name} → {original.name}")
+                slot.material = original
+                count += 1
+
+    print(f"\nTotal: {count} slots consolidados.")
+    print(f"Materiais únicos consolidados: {len(materiais_consolidados)}")
+
+consolidar_materiais()</code></pre>
+  </div>
+
+  <!-- SCRIPT 6: Consolidar instâncias com mesmo nome -->
+  <div class="script" data-cat="material" data-keywords="instancia mesmo nome consolidar duplicado usuarios">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-material">Materiais</div>
+        <div class="script-title">Consolidar instâncias de materiais com mesmo nome</div>
+        <div class="script-desc">Para casos onde múltiplos materiais têm o mesmo nome exato (datablocks separados). Mantém o de maior número de usuários.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <pre><code class="script-code">import bpy
+
+def consolidar_por_usuarios():
+    count = 0
+    
+    por_nome = {}
+    for mat in bpy.data.materials:
+        if mat.name not in por_nome:
+            por_nome[mat.name] = []
+        por_nome[mat.name].append(mat)
+    
+    for nome, mats in por_nome.items():
+        if len(mats) > 1:
+            principal = max(mats, key=lambda m: m.users)
+            print(f"\nConsolidando: {nome} ({len(mats)} cópias, mantendo com {principal.users} usuários)")
+            for obj in bpy.data.objects:
+                for slot in obj.material_slots:
+                    if slot.material in mats and slot.material != principal:
+                        slot.material = principal
+                        count += 1
+    
+    print(f"\nTotal: {count} slots consolidados.")
+    bpy.ops.outliner.orphans_purge(do_recursive=True)
+
+consolidar_por_usuarios()</code></pre>
+  </div>
+
+  <!-- SCRIPT 7: Join por nome base (toda a cena) -->
+  <div class="script" data-cat="mesh" data-keywords="join unir merge nome base sufixo">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-mesh">Meshes</div>
+        <div class="script-title">Join de objetos por nome base</div>
+        <div class="script-desc">Agrupa objetos com o mesmo nome base (ignorando sufixos .001, .002) e faz join automático em toda a cena.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Atenção:</strong> Salve o arquivo antes de rodar — operação irreversível sem Ctrl+Z.
+    </div>
+    <pre><code class="script-code">import bpy
+
+def join_por_nome_base():
+    count_grupos = 0
+    count_objetos = 0
+    
+    grupos = {}
+    for obj in bpy.data.objects:
+        if obj.type != 'MESH':
+            continue
+        nome = obj.name
+        if '.' in nome:
+            partes = nome.rsplit('.', 1)
+            if partes[1].isdigit():
+                nome_base = partes[0]
+            else:
+                nome_base = nome
+        else:
+            nome_base = nome
+        
+        if nome_base not in grupos:
+            grupos[nome_base] = []
+        grupos[nome_base].append(obj)
+    
+    for nome_base, objetos in grupos.items():
+        if len(objetos) > 1:
+            print(f"Juntando {len(objetos)} objetos: {nome_base}")
+            
+            bpy.ops.object.select_all(action='DESELECT')
+            
+            principal = None
+            for obj in objetos:
+                obj.select_set(True)
+                if obj.name == nome_base:
+                    principal = obj
+            
+            if not principal:
+                principal = objetos[0]
+            bpy.context.view_layer.objects.active = principal
+            
+            bpy.ops.object.join()
+            count_grupos += 1
+            count_objetos += len(objetos) - 1
+    
+    print(f"\nTotal: {count_grupos} grupos unidos, {count_objetos} objetos removidos.")
+
+join_por_nome_base()</code></pre>
+  </div>
+
+  <!-- SCRIPT 8: Join por nome base em uma collection -->
+  <div class="script" data-cat="mesh" data-keywords="join collection unir merge especifico">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-mesh">Meshes</div>
+        <div class="script-title">Join por nome base em collection específica</div>
+        <div class="script-desc">Versão controlada do join que opera apenas dentro de uma collection nomeada — evita afetar o resto da cena.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Configurar:</strong> Mude <code>"Collection 2"</code> na última linha para o nome da sua collection.
+    </div>
+    <pre><code class="script-code">import bpy
+
+def join_por_nome_base_collection(nome_collection):
+    collection = bpy.data.collections.get(nome_collection)
+    if not collection:
+        print(f"Collection '{nome_collection}' não encontrada!")
+        return
+    
+    count_grupos = 0
+    count_objetos = 0
+    
+    grupos = {}
+    for obj in collection.objects:
+        if obj.type != 'MESH':
+            continue
+        nome = obj.name
+        if '.' in nome:
+            partes = nome.rsplit('.', 1)
+            if partes[1].isdigit():
+                nome_base = partes[0]
+            else:
+                nome_base = nome
+        else:
+            nome_base = nome
+        
+        if nome_base not in grupos:
+            grupos[nome_base] = []
+        grupos[nome_base].append(obj)
+    
+    for nome_base, objetos in grupos.items():
+        if len(objetos) > 1:
+            print(f"Juntando {len(objetos)} objetos: {nome_base}")
+            
+            bpy.ops.object.select_all(action='DESELECT')
+            
+            principal = None
+            for obj in objetos:
+                obj.select_set(True)
+                if obj.name == nome_base:
+                    principal = obj
+            
+            if not principal:
+                principal = objetos[0]
+            bpy.context.view_layer.objects.active = principal
+            
+            bpy.ops.object.join()
+            count_grupos += 1
+            count_objetos += len(objetos) - 1
+    
+    print(f"\nTotal: {count_grupos} grupos unidos, {count_objetos} objetos removidos.")
+
+join_por_nome_base_collection("Collection 2")</code></pre>
+  </div>
+
+  <!-- SCRIPT 9: Limpeza de mesh em batch -->
+  <div class="script" data-cat="cleanup" data-keywords="merge by distance limpeza batch faces duplicadas">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-cleanup">Limpeza</div>
+        <div class="script-title">Limpar geometria em múltiplos objetos</div>
+        <div class="script-desc">Aplica Merge by Distance e Delete Loose em todos os objetos selecionados — útil para limpar imports CAD em lote.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Como usar:</strong> Selecione os objetos que quer limpar antes de rodar o script.
+    </div>
+    <pre><code class="script-code">import bpy
+
+for obj in bpy.context.selected_objects:
+    if obj.type != 'MESH':
+        continue
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.mesh.remove_doubles(threshold=0.0001)
+    bpy.ops.mesh.select_all(action='DESELECT')
+    bpy.ops.mesh.select_face_by_sides(number=0, type='EQUAL', extend=False)
+    bpy.ops.mesh.delete_loose()
+    bpy.ops.object.mode_set(mode='OBJECT')
+    print(f"Limpou: {obj.name}")
+
+print("Concluído.")</code></pre>
+  </div>
+
+  <!-- SCRIPT 10: Selecionar faces por ângulo -->
+  <div class="script" data-cat="uv" data-keywords="selecionar face angulo normal overhang orientacao">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-uv">UV/Seleção</div>
+        <div class="script-title">Selecionar faces por ângulo da normal</div>
+        <div class="script-desc">Seleciona faces baseado no ângulo entre a normal e uma direção definida — útil para overhangs, faces voltadas para baixo, etc.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Configurar:</strong> Ajuste <code>direcao</code>, <code>angulo_min</code> e <code>angulo_max</code>. Precisa estar em Edit Mode com o objeto ativo.
+    </div>
+    <pre><code class="script-code">import bpy
+import bmesh
+from mathutils import Vector
+
+obj = bpy.context.active_object
+bm = bmesh.from_edit_mesh(obj.data)
+
+direcao = Vector((0, 0, -1))  # -Z (overhang)
+angulo_min = 0  # graus
+angulo_max = 45
+
+for face in bm.faces:
+    angulo = face.normal.angle(direcao) * 57.2958  # rad → graus
+    if angulo_min <= angulo <= angulo_max:
+        face.select = True
+
+bmesh.update_edit_mesh(obj.data)</code></pre>
+  </div>
+
+  <!-- SCRIPT 11: Selecionar sharp edges -->
+  <div class="script" data-cat="uv" data-keywords="sharp edges arestas marcadas selecionar">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-uv">UV/Seleção</div>
+        <div class="script-title">Selecionar arestas marcadas como Sharp</div>
+        <div class="script-desc">Seleciona todas as edges que têm a marcação Sharp (não baseada em ângulo, mas em mark sharp manual).</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Atenção:</strong> Precisa estar em Edit Mode com Edge Select Mode ativo.
+    </div>
+    <pre><code class="script-code">import bpy
+import bmesh
+
+obj = bpy.context.active_object
+bm = bmesh.from_edit_mesh(obj.data)
+
+for edge in bm.edges:
+    if not edge.smooth:  # edges marcadas como sharp
+        edge.select = True
+
+bmesh.update_edit_mesh(obj.data)</code></pre>
+  </div>
+
+  <!-- SCRIPT 12: Limpar arquivos cached EXR -->
+  <div class="script" data-cat="utility" data-keywords="cache exr powershell limpar temp render">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-utility">Utilitários</div>
+        <div class="script-title">Limpar cache EXR corrompido (PowerShell)</div>
+        <div class="script-desc">Remove arquivos de cache do Compositor que podem corromper renders quando o nome da cena tem acentos.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <strong>Onde rodar:</strong> Este é um comando do <code>PowerShell</code> do Windows, não do Blender. Abre o Terminal e cola.
+    </div>
+    <pre><code class="script-code">Get-ChildItem "$env:TEMP\cached_RR_*" | Remove-Item -Force</code></pre>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="tagline">LET'S GET PHYGITAL</div>
+    <div>mk|3dlabs · Biblioteca interna · Workflow CAD/visualização</div>
+  </div>
+
+</div>
+
+<script>
+  // Copy functionality
+  function copyScript(btn) {
+    const script = btn.closest('.script');
+    const code = script.querySelector('.script-code').innerText;
+    
+    navigator.clipboard.writeText(code).then(() => {
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Search
+  const search = document.getElementById('search');
+  const scripts = document.querySelectorAll('.script');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const resultsCount = document.getElementById('results-count');
+  let activeCategory = 'all';
+
+  function updateFilter() {
+    const query = search.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    scripts.forEach(script => {
+      const cat = script.dataset.cat;
+      const keywords = script.dataset.keywords.toLowerCase();
+      const title = script.querySelector('.script-title').textContent.toLowerCase();
+      const desc = script.querySelector('.script-desc').textContent.toLowerCase();
+      
+      const matchesCategory = activeCategory === 'all' || cat === activeCategory;
+      const matchesSearch = !query || 
+                            title.includes(query) || 
+                            desc.includes(query) || 
+                            keywords.includes(query);
+      
+      if (matchesCategory && matchesSearch) {
+        script.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        script.classList.add('hidden');
+      }
+    });
+
+    resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'script encontrado' : 'scripts encontrados'}`;
+  }
+
+  search.addEventListener('input', updateFilter);
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCategory = btn.dataset.cat;
+      updateFilter();
+    });
+  });
+</script>
+</body>
+</html>
