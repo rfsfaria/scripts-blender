@@ -17,12 +17,8 @@
     padding: 40px 30px;
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  .container { max-width: 1200px; margin: 0 auto; }
 
-  /* HEADER */
   .header {
     margin-bottom: 50px;
     padding-bottom: 30px;
@@ -43,7 +39,6 @@
     font-weight: 700;
     letter-spacing: -1px;
     margin-bottom: 8px;
-    color: #F3F3F3;
   }
 
   .header .subtitle {
@@ -52,11 +47,7 @@
     font-weight: 300;
   }
 
-  /* SEARCH */
-  .search-wrap {
-    margin-bottom: 30px;
-    position: relative;
-  }
+  .search-wrap { margin-bottom: 30px; position: relative; }
 
   .search {
     width: 100%;
@@ -70,10 +61,7 @@
     transition: border-color 0.2s;
   }
 
-  .search:focus {
-    outline: none;
-    border-color: #7C16DB;
-  }
+  .search:focus { outline: none; border-color: #7C16DB; }
 
   .search-icon {
     position: absolute;
@@ -84,7 +72,6 @@
     font-size: 14px;
   }
 
-  /* CATEGORY FILTERS */
   .filters {
     display: flex;
     gap: 8px;
@@ -106,10 +93,7 @@
     transition: all 0.2s;
   }
 
-  .filter-btn:hover {
-    border-color: #7C16DB;
-    color: #F3F3F3;
-  }
+  .filter-btn:hover { border-color: #7C16DB; color: #F3F3F3; }
 
   .filter-btn.active {
     background: #7C16DB;
@@ -117,7 +101,6 @@
     color: #fff;
   }
 
-  /* SCRIPT CARDS */
   .script {
     background: #0a0a0a;
     border: 1px solid #1a1a1a;
@@ -127,13 +110,8 @@
     transition: border-color 0.2s;
   }
 
-  .script:hover {
-    border-color: #2a2a2a;
-  }
-
-  .script.hidden {
-    display: none;
-  }
+  .script:hover { border-color: #2a2a2a; }
+  .script.hidden { display: none; }
 
   .script-header {
     padding: 20px 24px;
@@ -144,9 +122,7 @@
     gap: 20px;
   }
 
-  .script-header-content {
-    flex: 1;
-  }
+  .script-header-content { flex: 1; }
 
   .script-category {
     display: inline-block;
@@ -166,6 +142,9 @@
   .cat-texture { background: rgba(251, 91, 18, 0.15); color: #FB5B12; }
   .cat-cleanup { background: rgba(0, 252, 138, 0.15); color: #00FC8A; }
   .cat-utility { background: rgba(232, 241, 2, 0.15); color: #E8F102; }
+  .cat-export { background: rgba(255, 255, 255, 0.1); color: #F3F3F3; }
+  .cat-tip { background: rgba(232, 241, 2, 0.1); color: #E8F102; }
+  .cat-duplicate { background: rgba(18, 145, 226, 0.15); color: #1291E2; }
 
   .script-title {
     font-size: 18px;
@@ -197,19 +176,8 @@
     flex-shrink: 0;
   }
 
-  .copy-btn:hover {
-    border-color: #7C16DB;
-    color: #F3F3F3;
-  }
-
-  .copy-btn.copied {
-    border-color: #00FC8A;
-    color: #00FC8A;
-  }
-
-  .script-body {
-    padding: 0;
-  }
+  .copy-btn:hover { border-color: #7C16DB; color: #F3F3F3; }
+  .copy-btn.copied { border-color: #00FC8A; color: #00FC8A; }
 
   .script-notes {
     padding: 16px 24px;
@@ -217,13 +185,13 @@
     border-bottom: 1px solid #1a1a1a;
     font-size: 12px;
     color: #aaa;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
-  .script-notes strong {
-    color: #E8F102;
-    font-weight: 500;
-  }
+  .script-notes strong { color: #E8F102; font-weight: 500; }
+  .script-notes .label-yes { color: #00FC8A; font-weight: 500; }
+  .script-notes .label-no { color: #FB5B12; font-weight: 500; }
+  .script-notes .label-warn { color: #E8F102; font-weight: 500; }
 
   .script-notes code {
     background: #1a1a1a;
@@ -233,6 +201,12 @@
     font-size: 11px;
     color: #DC0C9F;
   }
+
+  .script-notes p { margin-bottom: 8px; }
+  .script-notes p:last-child { margin-bottom: 0; }
+
+  .script-notes ul { margin-left: 18px; margin-top: 4px; margin-bottom: 4px; }
+  .script-notes ul li { margin-bottom: 4px; }
 
   pre {
     background: #050505;
@@ -249,14 +223,28 @@
     white-space: pre;
   }
 
-  /* SYNTAX HIGHLIGHT (simples) */
-  .keyword { color: #DC0C9F; }
-  .string { color: #00FC8A; }
-  .comment { color: #555; font-style: italic; }
-  .function { color: #1291E2; }
-  .number { color: #FB5B12; }
+  .tip-content {
+    padding: 20px 24px;
+    color: #ccc;
+    font-size: 13px;
+    line-height: 1.7;
+  }
 
-  /* INSTRUCTIONS BLOCK */
+  .tip-content p { margin-bottom: 12px; }
+  .tip-content ul { margin-left: 18px; margin-bottom: 12px; }
+  .tip-content ul li { margin-bottom: 6px; }
+
+  .tip-content code {
+    background: #1a1a1a;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #DC0C9F;
+  }
+
+  .tip-content strong { color: #E8F102; font-weight: 500; }
+
   .instructions {
     background: linear-gradient(135deg, #0a0a0a 0%, #0f0a14 100%);
     border: 1px solid #1a1a1a;
@@ -282,9 +270,7 @@
     line-height: 1.8;
   }
 
-  .instructions ol li {
-    margin-bottom: 6px;
-  }
+  .instructions ol li { margin-bottom: 6px; }
 
   .instructions code {
     background: #1a1a1a;
@@ -295,7 +281,6 @@
     color: #DC0C9F;
   }
 
-  /* FOOTER */
   .footer {
     margin-top: 80px;
     padding-top: 30px;
@@ -314,7 +299,6 @@
     font-weight: 600;
   }
 
-  /* COUNT */
   .results-count {
     font-size: 11px;
     letter-spacing: 2px;
@@ -328,14 +312,12 @@
 <body>
 <div class="container">
 
-  <!-- HEADER -->
   <div class="header">
     <div class="brand">mk|3dlabs · scripts library</div>
     <h1>Biblioteca de Scripts Blender</h1>
-    <div class="subtitle">Coleção de scripts Python para automação de tarefas no Blender — workflow CAD/visualização de produto</div>
+    <div class="subtitle">Coleção de scripts Python e dicas para automação no Blender — workflow CAD/visualização de produto</div>
   </div>
 
-  <!-- INSTRUCTIONS -->
   <div class="instructions">
     <h3>Como usar</h3>
     <ol>
@@ -348,26 +330,478 @@
     </ol>
   </div>
 
-  <!-- SEARCH -->
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
     <input type="text" class="search" id="search" placeholder="Buscar script por nome ou descrição...">
   </div>
 
-  <!-- FILTERS -->
   <div class="filters">
     <button class="filter-btn active" data-cat="all">Todos</button>
     <button class="filter-btn" data-cat="material">Materiais</button>
     <button class="filter-btn" data-cat="mesh">Meshes</button>
-    <button class="filter-btn" data-cat="uv">UV</button>
+    <button class="filter-btn" data-cat="duplicate">Duplicatas</button>
+    <button class="filter-btn" data-cat="uv">UV/Seleção</button>
     <button class="filter-btn" data-cat="texture">Texturas</button>
     <button class="filter-btn" data-cat="cleanup">Limpeza</button>
+    <button class="filter-btn" data-cat="export">Export</button>
     <button class="filter-btn" data-cat="utility">Utilitários</button>
+    <button class="filter-btn" data-cat="tip">Dicas</button>
   </div>
 
-  <div class="results-count" id="results-count">12 scripts disponíveis</div>
+  <div class="results-count" id="results-count">21 itens disponíveis</div>
 
-  <!-- SCRIPT 1: Achar materiais com texturas faltantes -->
+  <!-- =========== DUPLICATAS: HASH DE GEOMETRIA (DEFINITIVO) =========== -->
+  <div class="script" data-cat="duplicate" data-keywords="duplicata sobreposta hash geometria verticer identico igual deletar peca">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-duplicate">Duplicatas</div>
+        <div class="script-title">Detectar duplicatas por hash de geometria (recomendado)</div>
+        <div class="script-desc">Método mais preciso de detecção. Compara a geometria real dos objetos vértice por vértice usando hash MD5 — falso positivo praticamente zero.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Calcula um hash único da geometria de cada objeto (posição real dos vértices no espaço mundial)</li>
+        <li>Agrupa objetos com hash idêntico (geometria 100% igual)</li>
+        <li>Mantém o primeiro de cada grupo e <strong>seleciona os demais</strong> para você revisar e deletar</li>
+      </ul>
+      <p><strong>Quando usar:</strong> quando os métodos mais simples deram muitos falsos positivos, ou quando você quer ter certeza de que está deletando apenas duplicatas reais.</p>
+      <p><strong>Pega:</strong> <span class="label-yes">✓</span> peças sobrepostas exatas | <strong>Não pega:</strong> <span class="label-no">✗</span> peças espelhadas | <span class="label-no">✗</span> peças em array (posições diferentes)</p>
+      <p><strong>Após rodar:</strong> as duplicatas ficam selecionadas. Confira no outliner e pressione <code>X → Delete</code> para remover.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+import hashlib
+
+def hash_geometria(obj):
+    """Gera um hash único baseado na geometria real do objeto."""
+    mesh = obj.data
+    
+    # Coleta posições mundiais de todos os vértices
+    matrix = obj.matrix_world
+    vertices_mundiais = []
+    for v in mesh.vertices:
+        pos_mundial = matrix @ v.co
+        vertices_mundiais.append((
+            round(pos_mundial.x, 4),
+            round(pos_mundial.y, 4),
+            round(pos_mundial.z, 4),
+        ))
+    
+    # Ordena para garantir mesmo hash independente da ordem
+    vertices_mundiais.sort()
+    
+    # Cria hash MD5 da sequência
+    dados = str(vertices_mundiais).encode('utf-8')
+    return hashlib.md5(dados).hexdigest()
+
+# Primeiro passo: filtra candidatos por contagem de vértices (rápido)
+candidatos = {}
+for obj in bpy.data.objects:
+    if obj.type != 'MESH':
+        continue
+    chave_rapida = (len(obj.data.vertices), len(obj.data.polygons))
+    if chave_rapida not in candidatos:
+        candidatos[chave_rapida] = []
+    candidatos[chave_rapida].append(obj)
+
+# Segundo passo: nos grupos candidatos, calcula hash da geometria real
+grupos_duplicados = {}
+total_analisados = 0
+
+for chave_rapida, objetos in candidatos.items():
+    if len(objetos) < 2:
+        continue
+    
+    for obj in objetos:
+        total_analisados += 1
+        hash_geo = hash_geometria(obj)
+        if hash_geo not in grupos_duplicados:
+            grupos_duplicados[hash_geo] = []
+        grupos_duplicados[hash_geo].append(obj)
+
+bpy.ops.object.select_all(action='DESELECT')
+count = 0
+
+print(f"=== Análise de {total_analisados} candidatos ===\n")
+for hash_geo, objetos in grupos_duplicados.items():
+    if len(objetos) > 1:
+        print(f"Grupo ({len(objetos)} objetos com geometria idêntica):")
+        print(f"  Mantido: {objetos[0].name}")
+        for obj in objetos[1:]:
+            obj.select_set(True)
+            print(f"  Selecionado: {obj.name}")
+            count += 1
+        print()
+
+print(f"\nTotal: {count} duplicatas selecionadas para deletar.")
+print("Confira visualmente antes de pressionar X.")</code></pre>
+  </div>
+
+  <!-- =========== DUPLICATAS: POSIÇÃO EXATA (RÁPIDO) =========== -->
+  <div class="script" data-cat="duplicate" data-keywords="duplicata posicao rotacao escala rapido identificar listar">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-duplicate">Duplicatas</div>
+        <div class="script-title">Listar duplicatas por posição/rotação/escala</div>
+        <div class="script-desc">Método rápido que apenas <strong>lista</strong> (não seleciona) objetos com mesma transformação no espaço. Útil para fazer uma auditoria inicial.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Compara <code>location</code>, <code>rotation</code> e <code>scale</code> de todos os meshes</li>
+        <li>Lista no console os grupos de objetos com mesma transformação</li>
+        <li>Não seleciona nem deleta nada — apenas relatório</li>
+      </ul>
+      <p><strong>Quando usar:</strong> para um diagnóstico rápido de quantas duplicatas existem na cena antes de rodar o método de hash (que é mais pesado).</p>
+      <p><strong>Limitação:</strong> <span class="label-warn">⚠</span> se você fez <code>Apply Scale/Rotation</code> nos objetos, esse método pode dar falsos positivos porque todos terão <code>scale=(1,1,1)</code> e <code>rotation=(0,0,0)</code>.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+tolerancia = 0.0001
+
+def chave_transform(obj):
+    return (
+        round(obj.location.x / tolerancia),
+        round(obj.location.y / tolerancia),
+        round(obj.location.z / tolerancia),
+        round(obj.rotation_euler.x / tolerancia),
+        round(obj.rotation_euler.y / tolerancia),
+        round(obj.rotation_euler.z / tolerancia),
+        round(obj.scale.x / tolerancia),
+        round(obj.scale.y / tolerancia),
+        round(obj.scale.z / tolerancia),
+    )
+
+grupos = {}
+for obj in bpy.data.objects:
+    if obj.type != 'MESH':
+        continue
+    chave = chave_transform(obj)
+    if chave not in grupos:
+        grupos[chave] = []
+    grupos[chave].append(obj)
+
+print("=== Possíveis duplicatas (mesma posição/rotação/escala) ===\n")
+for chave, objetos in grupos.items():
+    if len(objetos) > 1:
+        print(f"Grupo com {len(objetos)} objetos:")
+        for obj in objetos:
+            print(f"  - {obj.name} ({len(obj.data.vertices)} vértices)")
+        print()</code></pre>
+  </div>
+
+  <!-- =========== DUPLICATAS: REVISÃO VISUAL =========== -->
+  <div class="script" data-cat="duplicate" data-keywords="duplicata revisar selecionar visual conservador">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-duplicate">Duplicatas</div>
+        <div class="script-title">Selecionar duplicatas para revisão visual</div>
+        <div class="script-desc">Versão intermediária — usa posição + contagem de vértices para detectar candidatos e <strong>seleciona</strong> as duplicatas (sem deletar) para você revisar visualmente.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Compara posição + número de vértices/faces (mais leve que o método hash)</li>
+        <li>Seleciona as duplicatas no viewport (mantém uma de cada grupo)</li>
+      </ul>
+      <p><strong>Quando usar:</strong> cenas pequenas/médias onde você quer revisar manualmente antes de deletar. Se a quantidade de falsos positivos for alta, use o método de hash.</p>
+      <p><strong>Após rodar:</strong> abra o outliner, confirme as seleções e pressione <code>X → Delete</code>.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+tolerancia = 0.0001
+
+def chave_obj(obj):
+    return (
+        round(obj.location.x / tolerancia),
+        round(obj.location.y / tolerancia),
+        round(obj.location.z / tolerancia),
+        len(obj.data.vertices),
+    )
+
+grupos = {}
+for obj in bpy.data.objects:
+    if obj.type != 'MESH':
+        continue
+    chave = chave_obj(obj)
+    if chave not in grupos:
+        grupos[chave] = []
+    grupos[chave].append(obj)
+
+bpy.ops.object.select_all(action='DESELECT')
+count = 0
+
+for chave, objetos in grupos.items():
+    if len(objetos) > 1:
+        # Mantém o primeiro, seleciona os outros
+        for obj in objetos[1:]:
+            obj.select_set(True)
+            count += 1
+
+print(f"{count} duplicatas selecionadas para revisão.")
+print("Verifique visualmente antes de deletar com X.")</code></pre>
+  </div>
+
+  <!-- =========== ANIMAÇÕES =========== -->
+  <div class="script" data-cat="cleanup" data-keywords="animacao keyframes limpar remover actions shape keys drivers">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-cleanup">Limpeza</div>
+        <div class="script-title">Remover animações de todos os objetos</div>
+        <div class="script-desc">Limpa keyframes, drivers, animações de shape keys e actions órfãs de todos os objetos da cena (meshes, luzes, câmeras, empties).</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Remove todos os keyframes e drivers dos objetos</li>
+        <li>Limpa animações de mesh data e shape keys</li>
+        <li>Remove actions órfãs da memória</li>
+      </ul>
+      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve um backup antes. Remove <strong>todos</strong> os keyframes, inclusive de objetos que você queira manter animados. Se houver animações importantes, mova-os para outra cena antes.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+count = 0
+
+for obj in bpy.data.objects:
+    if obj.animation_data:
+        obj.animation_data_clear()
+        count += 1
+        print(f"Limpo: {obj.name} ({obj.type})")
+    
+    if obj.data and hasattr(obj.data, 'animation_data') and obj.data.animation_data:
+        obj.data.animation_data_clear()
+    
+    if obj.data and hasattr(obj.data, 'shape_keys') and obj.data.shape_keys:
+        if obj.data.shape_keys.animation_data:
+            obj.data.shape_keys.animation_data_clear()
+
+# Remove actions órfãs
+for action in list(bpy.data.actions):
+    if action.users == 0:
+        bpy.data.actions.remove(action)
+
+print(f"\nTotal: {count} objetos com animação removida.")</code></pre>
+  </div>
+
+  <!-- =========== DICA: Export glb sem texturas =========== -->
+  <div class="script" data-cat="tip" data-keywords="export glb gltf imagem textura images none visualizador">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-tip">Dica</div>
+        <div class="script-title">Exportar glb sem texturas (atalho nativo)</div>
+        <div class="script-desc">Sem precisar desconectar nodes manualmente — o exportador glTF tem uma opção embutida que ignora todas as imagens.</div>
+      </div>
+    </div>
+    <div class="tip-content">
+      <p>Ao exportar como <strong>glTF (.glb)</strong>, role o painel de export até a seção <strong>Material</strong> e mude a opção <code>Images</code>:</p>
+      <ul>
+        <li><code>Automatic</code> → inclui todas as imagens (padrão, arquivo pesado)</li>
+        <li><code>None</code> → exporta sem nenhuma textura (arquivo leve)</li>
+      </ul>
+      <p>Ideal quando você vai reaplicar as texturas em outro lugar (ex: visualizador 3D do mk|Studio). Combina bem com conversão das texturas para JPG ≤2MB separadamente.</p>
+    </div>
+  </div>
+
+  <!-- =========== EXPORT JPG =========== -->
+  <div class="script" data-cat="export" data-keywords="exportar textura jpg jpeg otimizar redimensionar visualizador">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-export">Export</div>
+        <div class="script-title">Exportar texturas como JPG otimizado</div>
+        <div class="script-desc">Exporta todas as imagens da cena em JPG com qualidade e resolução máxima configuráveis — útil para preparar texturas para o visualizador 3D (limite 2MB).</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Percorre todas as imagens da cena</li>
+        <li>Redimensiona se forem maiores que o limite definido</li>
+        <li>Exporta como JPG na qualidade configurada para uma pasta de saída</li>
+      </ul>
+      <p><strong>Configurar:</strong> Ajuste <code>pasta_saida</code>, <code>qualidade_jpg</code> (0-100) e <code>resolucao_max</code>.</p>
+      <p><strong>Atenção:</strong> o script redimensiona as imagens diretamente no .blend atual — salve um backup antes.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+import os
+
+pasta_saida = "C:/Users/Rafael/Desktop/texturas_jpg/"
+qualidade_jpg = 85  # 0-100, 85 é bom equilíbrio
+resolucao_max = 2048
+
+os.makedirs(pasta_saida, exist_ok=True)
+
+bpy.context.scene.render.image_settings.file_format = 'JPEG'
+bpy.context.scene.render.image_settings.quality = qualidade_jpg
+
+for img in bpy.data.images:
+    if img.source == 'GENERATED' or not img.has_data:
+        continue
+    
+    if img.size[0] > resolucao_max or img.size[1] > resolucao_max:
+        novo_w = min(img.size[0], resolucao_max)
+        novo_h = min(img.size[1], resolucao_max)
+        img.scale(novo_w, novo_h)
+    
+    nome_base = os.path.splitext(img.name)[0]
+    caminho = os.path.join(pasta_saida, f"{nome_base}.jpg")
+    img.save_render(filepath=caminho)
+    print(f"Exportado: {nome_base}.jpg")
+
+print("\nConcluído!")</code></pre>
+  </div>
+
+  <!-- =========== RECALCULAR NORMAIS =========== -->
+  <div class="script" data-cat="cleanup" data-keywords="flipar faces invertidas normais vermelhas face orientation recalculate">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-cleanup">Limpeza</div>
+        <div class="script-title">Recalcular normais (resolver faces vermelhas)</div>
+        <div class="script-desc">Recalcula todas as normais para apontarem para fora — resolve faces invertidas (vermelhas no Face Orientation) em uma operação. Funciona muito bem em malhas CAD.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong> aplica <code>Mesh → Normals → Recalculate Outside</code> (Shift+N) em todos os objetos selecionados de uma vez.</p>
+      <p><strong>Como usar:</strong> selecione no viewport os objetos que quer corrigir antes de rodar o script.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+for obj in bpy.context.selected_objects:
+    if obj.type != 'MESH':
+        continue
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.mode_set(mode='EDIT')
+    bpy.ops.mesh.select_all(action='SELECT')
+    bpy.ops.mesh.normals_make_consistent(inside=False)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    print(f"Normais recalculadas: {obj.name}")
+
+print("Concluído.")</code></pre>
+  </div>
+
+  <!-- =========== JOIN POR MATERIAL ESPECÍFICO =========== -->
+  <div class="script" data-cat="mesh" data-keywords="join material especifico nome consolidar unir">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-mesh">Meshes</div>
+        <div class="script-title">Join por material específico</div>
+        <div class="script-desc">Faz join automático de todos os objetos que usam um material específico (em qualquer slot). Lista os objetos antes de juntar para confirmação.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Procura todos os objetos que têm o material especificado em qualquer slot</li>
+        <li>Lista no console quais objetos foram encontrados</li>
+        <li>Faz join de todos em um único objeto</li>
+      </ul>
+      <p><strong>Configurar:</strong> mude <code>nome_material</code> para o nome exato do material desejado.</p>
+      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve antes.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+nome_material = "ALPHA ESTRUTURA PRO.002"
+
+mat = bpy.data.materials.get(nome_material)
+if not mat:
+    print(f"Material '{nome_material}' não encontrado!")
+else:
+    objetos = []
+    for obj in bpy.data.objects:
+        if obj.type != 'MESH':
+            continue
+        for slot in obj.material_slots:
+            if slot.material == mat:
+                objetos.append(obj)
+                break
+    
+    if len(objetos) < 2:
+        print(f"Apenas {len(objetos)} objeto(s) usa(m) esse material.")
+    else:
+        print(f"Juntando {len(objetos)} objetos com material '{nome_material}':")
+        for obj in objetos:
+            print(f"  - {obj.name}")
+        
+        bpy.ops.object.select_all(action='DESELECT')
+        for obj in objetos:
+            obj.select_set(True)
+        bpy.context.view_layer.objects.active = objetos[0]
+        bpy.ops.object.join()
+        
+        print(f"\nJoin concluído. Objeto resultante: {objetos[0].name}")</code></pre>
+  </div>
+
+  <!-- =========== JOIN POR MATERIAL (CENA TODA) =========== -->
+  <div class="script" data-cat="mesh" data-keywords="join material todos consolidar batch agrupar">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-mesh">Meshes</div>
+        <div class="script-title">Join de todos os objetos por material (cena toda)</div>
+        <div class="script-desc">Agrupa e faz join de todos os objetos da cena que compartilham o mesmo material no primeiro slot — útil para consolidar geometria fragmentada de imports CAD.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Agrupa todos os objetos da cena pelo material do primeiro slot</li>
+        <li>Faz join automático de cada grupo com mais de 1 objeto</li>
+        <li>Mostra no console quantos grupos foram unidos</li>
+      </ul>
+      <p><strong>Atenção:</strong> salve o arquivo antes — operação afeta toda a cena de uma vez. O nome do objeto resultante vem do primeiro do grupo.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+def join_por_material():
+    grupos = {}
+    
+    for obj in bpy.data.objects:
+        if obj.type != 'MESH':
+            continue
+        if not obj.material_slots:
+            continue
+        mat = obj.material_slots[0].material
+        if not mat:
+            continue
+        
+        if mat.name not in grupos:
+            grupos[mat.name] = []
+        grupos[mat.name].append(obj)
+    
+    count_grupos = 0
+    count_objetos = 0
+    
+    for nome_mat, objetos in grupos.items():
+        if len(objetos) > 1:
+            print(f"Juntando {len(objetos)} objetos com material: {nome_mat}")
+            
+            bpy.ops.object.select_all(action='DESELECT')
+            for obj in objetos:
+                obj.select_set(True)
+            
+            bpy.context.view_layer.objects.active = objetos[0]
+            bpy.ops.object.join()
+            
+            count_grupos += 1
+            count_objetos += len(objetos) - 1
+    
+    print(f"\nTotal: {count_grupos} grupos unidos, {count_objetos} objetos removidos.")
+
+join_por_material()</code></pre>
+  </div>
+
+  <!-- =========== TEXTURAS FALTANTES =========== -->
   <div class="script" data-cat="texture" data-keywords="textura faltante missing material objetos buscar">
     <div class="script-header">
       <div class="script-header-content">
@@ -378,7 +812,13 @@
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Configurar:</strong> Edite a lista <code>missing</code> com os nomes parciais das texturas faltantes.
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Percorre todos os materiais da cena buscando os nomes parciais informados</li>
+        <li>Lista no console quais objetos usam materiais com texturas faltantes</li>
+        <li>Não modifica nada — apenas relatório</li>
+      </ul>
+      <p><strong>Configurar:</strong> edite a lista <code>missing</code> com nomes parciais das texturas que apareceram em erros.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -394,7 +834,7 @@ for mat in bpy.data.materials:
                     print(f"Material: {mat.name} | Objetos: {users}")</code></pre>
   </div>
 
-  <!-- SCRIPT 2: Remover textura faltante -->
+  <!-- =========== REMOVER TEXTURA =========== -->
   <div class="script" data-cat="texture" data-keywords="remover textura faltante limpar nodo imagem">
     <div class="script-header">
       <div class="script-header-content">
@@ -405,7 +845,8 @@ for mat in bpy.data.materials:
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Configurar:</strong> Substitua <code>'COL_LedOff_GEN_D'</code> pelo nome parcial da textura a remover.
+      <p><strong>O que faz:</strong> remove a referência de imagem dos nodes Image Texture que contenham o nome informado, mantendo o resto do material intacto.</p>
+      <p><strong>Configurar:</strong> substitua <code>'COL_LedOff_GEN_D'</code> pelo nome parcial da textura a remover.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -418,7 +859,7 @@ for mat in bpy.data.materials:
                     print(f"Textura removida de: {mat.name}")</code></pre>
   </div>
 
-  <!-- SCRIPT 3: Substituir textura por placeholder -->
+  <!-- =========== PLACEHOLDER =========== -->
   <div class="script" data-cat="texture" data-keywords="placeholder substituir textura imagem">
     <div class="script-header">
       <div class="script-header-content">
@@ -427,6 +868,9 @@ for mat in bpy.data.materials:
         <div class="script-desc">Cria uma imagem em branco e substitui as texturas faltantes — útil quando o material precisa permanecer funcional.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong> cria uma imagem placeholder em branco (256x256) e substitui todas as referências da textura faltante por ela. Mantém os nodes conectados.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -441,7 +885,7 @@ for mat in bpy.data.materials:
                     print(f"Substituído em: {mat.name}")</code></pre>
   </div>
 
-  <!-- SCRIPT 4: Substituir material por prefixo -->
+  <!-- =========== SUBSTITUIR MATERIAL PREFIXO =========== -->
   <div class="script" data-cat="material" data-keywords="substituir material prefixo trocar bulk batch">
     <div class="script-header">
       <div class="script-header-content">
@@ -452,7 +896,13 @@ for mat in bpy.data.materials:
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Configurar:</strong> Edite <code>prefixo_origem</code> e <code>material_destino</code> com os nomes desejados. O material destino precisa existir na cena.
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Procura materiais que começam com o prefixo informado</li>
+        <li>Substitui todos por um único material destino</li>
+        <li>Lista os materiais únicos que foram afetados</li>
+      </ul>
+      <p><strong>Configurar:</strong> edite <code>prefixo_origem</code> e <code>material_destino</code>. O material destino precisa existir na cena.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -478,15 +928,18 @@ else:
     print(f"\nTotal: {count} slots substituídos.")</code></pre>
   </div>
 
-  <!-- SCRIPT 5: Consolidar duplicados com sufixo -->
+  <!-- =========== CONSOLIDAR DUPLICADOS =========== -->
   <div class="script" data-cat="material" data-keywords="consolidar duplicado sufixo 001 002 limpar materiais">
     <div class="script-header">
       <div class="script-header-content">
         <div class="script-category cat-material">Materiais</div>
         <div class="script-title">Consolidar materiais duplicados (.001, .002)</div>
-        <div class="script-desc">Detecta materiais com sufixos numéricos e consolida tudo no material base original.</div>
+        <div class="script-desc">Detecta materiais com sufixos numéricos (.001, .002, .003) e consolida tudo no material base original. Útil para limpar duplicações que o Blender cria ao colar/importar.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong> procura materiais com sufixos numéricos no nome e, se existir um material base sem sufixo, substitui todas as ocorrências do duplicado pelo original.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -517,15 +970,18 @@ def consolidar_materiais():
 consolidar_materiais()</code></pre>
   </div>
 
-  <!-- SCRIPT 6: Consolidar instâncias com mesmo nome -->
+  <!-- =========== CONSOLIDAR INSTÂNCIAS =========== -->
   <div class="script" data-cat="material" data-keywords="instancia mesmo nome consolidar duplicado usuarios">
     <div class="script-header">
       <div class="script-header-content">
         <div class="script-category cat-material">Materiais</div>
         <div class="script-title">Consolidar instâncias de materiais com mesmo nome</div>
-        <div class="script-desc">Para casos onde múltiplos materiais têm o mesmo nome exato (datablocks separados). Mantém o de maior número de usuários.</div>
+        <div class="script-desc">Para casos onde múltiplos materiais têm o mesmo nome exato (datablocks separados). Mantém o de maior número de usuários e remove os órfãos.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong> agrupa materiais que têm exatamente o mesmo nome, mantém o que tem mais usuários e substitui as demais ocorrências por ele. No final, remove os órfãos.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -554,7 +1010,7 @@ def consolidar_por_usuarios():
 consolidar_por_usuarios()</code></pre>
   </div>
 
-  <!-- SCRIPT 7: Join por nome base (toda a cena) -->
+  <!-- =========== JOIN POR NOME BASE =========== -->
   <div class="script" data-cat="mesh" data-keywords="join unir merge nome base sufixo">
     <div class="script-header">
       <div class="script-header-content">
@@ -565,7 +1021,8 @@ consolidar_por_usuarios()</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Atenção:</strong> Salve o arquivo antes de rodar — operação irreversível sem Ctrl+Z.
+      <p><strong>O que faz:</strong> identifica objetos cujos nomes diferem apenas pelo sufixo numérico (.001, .002) e os une em um só. Útil para consolidar imports CAD onde a mesma peça vem em múltiplas instâncias.</p>
+      <p><strong>Atenção:</strong> salve o arquivo antes — operação irreversível sem Ctrl+Z.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -616,7 +1073,7 @@ def join_por_nome_base():
 join_por_nome_base()</code></pre>
   </div>
 
-  <!-- SCRIPT 8: Join por nome base em uma collection -->
+  <!-- =========== JOIN POR COLLECTION =========== -->
   <div class="script" data-cat="mesh" data-keywords="join collection unir merge especifico">
     <div class="script-header">
       <div class="script-header-content">
@@ -627,7 +1084,8 @@ join_por_nome_base()</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Configurar:</strong> Mude <code>"Collection 2"</code> na última linha para o nome da sua collection.
+      <p><strong>O que faz:</strong> mesmo comportamento do "Join por nome base", mas limitado aos objetos de uma collection específica. Ideal quando você quer testar a operação numa parte isolada da cena antes.</p>
+      <p><strong>Configurar:</strong> mude <code>"Collection 2"</code> na última linha para o nome da sua collection.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -683,7 +1141,7 @@ def join_por_nome_base_collection(nome_collection):
 join_por_nome_base_collection("Collection 2")</code></pre>
   </div>
 
-  <!-- SCRIPT 9: Limpeza de mesh em batch -->
+  <!-- =========== LIMPEZA MESH BATCH =========== -->
   <div class="script" data-cat="cleanup" data-keywords="merge by distance limpeza batch faces duplicadas">
     <div class="script-header">
       <div class="script-header-content">
@@ -694,7 +1152,8 @@ join_por_nome_base_collection("Collection 2")</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Como usar:</strong> Selecione os objetos que quer limpar antes de rodar o script.
+      <p><strong>O que faz:</strong> para cada objeto selecionado, entra em Edit Mode e executa Merge by Distance (threshold 0.0001m) seguido de Delete Loose (remove vértices e edges órfãos). Sai do Edit Mode automaticamente.</p>
+      <p><strong>Como usar:</strong> selecione os objetos que quer limpar antes de rodar o script.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -714,7 +1173,7 @@ for obj in bpy.context.selected_objects:
 print("Concluído.")</code></pre>
   </div>
 
-  <!-- SCRIPT 10: Selecionar faces por ângulo -->
+  <!-- =========== SELECIONAR POR ÂNGULO =========== -->
   <div class="script" data-cat="uv" data-keywords="selecionar face angulo normal overhang orientacao">
     <div class="script-header">
       <div class="script-header-content">
@@ -725,7 +1184,8 @@ print("Concluído.")</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Configurar:</strong> Ajuste <code>direcao</code>, <code>angulo_min</code> e <code>angulo_max</code>. Precisa estar em Edit Mode com o objeto ativo.
+      <p><strong>O que faz:</strong> calcula o ângulo entre cada face do mesh e o vetor de direção informado. Seleciona apenas as faces que caem dentro do range de ângulos especificado.</p>
+      <p><strong>Configurar:</strong> ajuste <code>direcao</code> (vetor de referência), <code>angulo_min</code> e <code>angulo_max</code>. Precisa estar em Edit Mode com o objeto ativo.</p>
     </div>
     <pre><code class="script-code">import bpy
 import bmesh
@@ -746,7 +1206,7 @@ for face in bm.faces:
 bmesh.update_edit_mesh(obj.data)</code></pre>
   </div>
 
-  <!-- SCRIPT 11: Selecionar sharp edges -->
+  <!-- =========== SHARP EDGES =========== -->
   <div class="script" data-cat="uv" data-keywords="sharp edges arestas marcadas selecionar">
     <div class="script-header">
       <div class="script-header-content">
@@ -757,7 +1217,8 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Atenção:</strong> Precisa estar em Edit Mode com Edge Select Mode ativo.
+      <p><strong>O que faz:</strong> percorre todas as arestas e seleciona as que estão marcadas como Sharp (independente do ângulo).</p>
+      <p><strong>Atenção:</strong> precisa estar em Edit Mode com Edge Select Mode ativo.</p>
     </div>
     <pre><code class="script-code">import bpy
 import bmesh
@@ -772,7 +1233,7 @@ for edge in bm.edges:
 bmesh.update_edit_mesh(obj.data)</code></pre>
   </div>
 
-  <!-- SCRIPT 12: Limpar arquivos cached EXR -->
+  <!-- =========== CACHE EXR =========== -->
   <div class="script" data-cat="utility" data-keywords="cache exr powershell limpar temp render">
     <div class="script-header">
       <div class="script-header-content">
@@ -783,12 +1244,12 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <strong>Onde rodar:</strong> Este é um comando do <code>PowerShell</code> do Windows, não do Blender. Abre o Terminal e cola.
+      <p><strong>O que faz:</strong> apaga todos os arquivos <code>cached_RR_*</code> da pasta Temp do Windows. Resolve travamentos do compositor após render quando há acentos no nome da cena.</p>
+      <p><strong>Onde rodar:</strong> este é um comando do <code>PowerShell</code> do Windows, não do Blender. Abre o Terminal e cola.</p>
     </div>
     <pre><code class="script-code">Get-ChildItem "$env:TEMP\cached_RR_*" | Remove-Item -Force</code></pre>
   </div>
 
-  <!-- FOOTER -->
   <div class="footer">
     <div class="tagline">LET'S GET PHYGITAL</div>
     <div>mk|3dlabs · Biblioteca interna · Workflow CAD/visualização</div>
@@ -797,7 +1258,6 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
 </div>
 
 <script>
-  // Copy functionality
   function copyScript(btn) {
     const script = btn.closest('.script');
     const code = script.querySelector('.script-code').innerText;
@@ -814,7 +1274,6 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
     });
   }
 
-  // Search
   const search = document.getElementById('search');
   const scripts = document.querySelectorAll('.script');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -845,7 +1304,7 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
       }
     });
 
-    resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'script encontrado' : 'scripts encontrados'}`;
+    resultsCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'item encontrado' : 'itens encontrados'}`;
   }
 
   search.addEventListener('input', updateFilter);
