@@ -348,9 +348,119 @@
     <button class="filter-btn" data-cat="tip">Dicas</button>
   </div>
 
-  <div class="results-count" id="results-count">21 itens disponíveis</div>
+  <div class="results-count" id="results-count">22 itens disponíveis</div>
 
-  <!-- =========== DUPLICATAS: HASH DE GEOMETRIA (DEFINITIVO) =========== -->
+  <!-- =========== EXPORT FBX INDIVIDUAIS (NOVO) =========== -->
+  <div class="script" data-cat="export" data-keywords="exportar fbx individual visivel batch lote separado pecas">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-export">Export</div>
+        <div class="script-title">Exportar objetos visíveis como FBX individuais</div>
+        <div class="script-desc">Exporta cada objeto visível da cena como um arquivo FBX separado, respeitando exatamente o estado do outliner (objetos ocultos pelo olho ou em collections fechadas são ignorados).</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Percorre todos os meshes da cena</li>
+        <li>Ignora objetos ocultos no outliner (olho, monitor) e collections ocultas/excluídas</li>
+        <li>Para cada objeto visível: deseleciona tudo, seleciona só ele, exporta como FBX individual</li>
+        <li>Sanitiza o nome do arquivo (remove caracteres problemáticos como <code>/</code> e <code>:</code>)</li>
+        <li>Restaura a seleção original ao final</li>
+        <li>Mostra no console um relatório completo: exportados, ignorados e erros</li>
+      </ul>
+      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code> com o caminho onde os FBX serão salvos. A pasta é criada automaticamente se não existir.</p>
+      <p><strong>Como usar:</strong> oculte na árvore (outliner) os objetos que NÃO devem ser exportados antes de rodar o script. Tudo que estiver visível na cena será exportado.</p>
+    </div>
+    <pre><code class="script-code">import bpy
+import os
+
+# CONFIGURAR
+pasta_saida = "F:/TRAMPO/METAKOSMOS/3Ds/Stellantis/Fiat Toro/Exports/Individuais/"
+
+os.makedirs(pasta_saida, exist_ok=True)
+
+# Guarda seleção atual
+selecao_original = bpy.context.selected_objects[:]
+ativo_original = bpy.context.view_layer.objects.active
+
+def objeto_visivel(obj):
+    """Checa se o objeto está realmente visível no viewport."""
+    if obj.hide_get():
+        return False
+    if obj.hide_viewport:
+        return False
+    for collection in obj.users_collection:
+        def checar_collection(layer_coll, alvo):
+            if layer_coll.collection == alvo:
+                return not layer_coll.hide_viewport and not layer_coll.exclude
+            for child in layer_coll.children:
+                resultado = checar_collection(child, alvo)
+                if resultado is not None:
+                    return resultado
+            return None
+        
+        view_layer = bpy.context.view_layer
+        visivel_na_coll = checar_collection(view_layer.layer_collection, collection)
+        if visivel_na_coll is False:
+            return False
+    return True
+
+count = 0
+erros = []
+ignorados = 0
+
+for obj in bpy.data.objects:
+    if obj.type != 'MESH':
+        continue
+    
+    if not objeto_visivel(obj):
+        ignorados += 1
+        continue
+    
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    
+    nome_arquivo = obj.name.replace('/', '_').replace('\\', '_').replace(':', '_')
+    caminho = os.path.join(pasta_saida, f"{nome_arquivo}.fbx")
+    
+    try:
+        bpy.ops.export_scene.fbx(
+            filepath=caminho,
+            use_selection=True,
+            object_types={'MESH'},
+            apply_unit_scale=True,
+            apply_scale_options='FBX_SCALE_NONE',
+            use_mesh_modifiers=True,
+            mesh_smooth_type='FACE',
+            path_mode='COPY',
+            embed_textures=False
+        )
+        count += 1
+        print(f"Exportado: {nome_arquivo}.fbx")
+    except Exception as e:
+        erros.append((obj.name, str(e)))
+        print(f"Erro em {obj.name}: {e}")
+
+# Restaura seleção
+bpy.ops.object.select_all(action='DESELECT')
+for obj in selecao_original:
+    obj.select_set(True)
+if ativo_original:
+    bpy.context.view_layer.objects.active = ativo_original
+
+print(f"\n=== Concluído ===")
+print(f"Exportados: {count}")
+print(f"Ignorados (ocultos): {ignorados}")
+if erros:
+    print(f"Erros: {len(erros)}")
+    for nome, erro in erros:
+        print(f"  - {nome}: {erro}")</code></pre>
+  </div>
+
+  <!-- =========== DUPLICATAS: HASH DE GEOMETRIA =========== -->
   <div class="script" data-cat="duplicate" data-keywords="duplicata sobreposta hash geometria verticer identico igual deletar peca">
     <div class="script-header">
       <div class="script-header-content">
@@ -378,7 +488,6 @@ def hash_geometria(obj):
     """Gera um hash único baseado na geometria real do objeto."""
     mesh = obj.data
     
-    # Coleta posições mundiais de todos os vértices
     matrix = obj.matrix_world
     vertices_mundiais = []
     for v in mesh.vertices:
@@ -389,14 +498,11 @@ def hash_geometria(obj):
             round(pos_mundial.z, 4),
         ))
     
-    # Ordena para garantir mesmo hash independente da ordem
     vertices_mundiais.sort()
     
-    # Cria hash MD5 da sequência
     dados = str(vertices_mundiais).encode('utf-8')
     return hashlib.md5(dados).hexdigest()
 
-# Primeiro passo: filtra candidatos por contagem de vértices (rápido)
 candidatos = {}
 for obj in bpy.data.objects:
     if obj.type != 'MESH':
@@ -406,7 +512,6 @@ for obj in bpy.data.objects:
         candidatos[chave_rapida] = []
     candidatos[chave_rapida].append(obj)
 
-# Segundo passo: nos grupos candidatos, calcula hash da geometria real
 grupos_duplicados = {}
 total_analisados = 0
 
@@ -439,7 +544,7 @@ print(f"\nTotal: {count} duplicatas selecionadas para deletar.")
 print("Confira visualmente antes de pressionar X.")</code></pre>
   </div>
 
-  <!-- =========== DUPLICATAS: POSIÇÃO EXATA (RÁPIDO) =========== -->
+  <!-- =========== DUPLICATAS: POSIÇÃO EXATA =========== -->
   <div class="script" data-cat="duplicate" data-keywords="duplicata posicao rotacao escala rapido identificar listar">
     <div class="script-header">
       <div class="script-header-content">
@@ -539,7 +644,6 @@ count = 0
 
 for chave, objetos in grupos.items():
     if len(objetos) > 1:
-        # Mantém o primeiro, seleciona os outros
         for obj in objetos[1:]:
             obj.select_set(True)
             count += 1
@@ -565,7 +669,7 @@ print("Verifique visualmente antes de deletar com X.")</code></pre>
         <li>Limpa animações de mesh data e shape keys</li>
         <li>Remove actions órfãs da memória</li>
       </ul>
-      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve um backup antes. Remove <strong>todos</strong> os keyframes, inclusive de objetos que você queira manter animados. Se houver animações importantes, mova-os para outra cena antes.</p>
+      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve um backup antes. Remove <strong>todos</strong> os keyframes, inclusive de objetos que você queira manter animados.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -584,7 +688,6 @@ for obj in bpy.data.objects:
         if obj.data.shape_keys.animation_data:
             obj.data.shape_keys.animation_data_clear()
 
-# Remove actions órfãs
 for action in list(bpy.data.actions):
     if action.users == 0:
         bpy.data.actions.remove(action)
@@ -628,14 +731,14 @@ print(f"\nTotal: {count} objetos com animação removida.")</code></pre>
         <li>Redimensiona se forem maiores que o limite definido</li>
         <li>Exporta como JPG na qualidade configurada para uma pasta de saída</li>
       </ul>
-      <p><strong>Configurar:</strong> Ajuste <code>pasta_saida</code>, <code>qualidade_jpg</code> (0-100) e <code>resolucao_max</code>.</p>
+      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code>, <code>qualidade_jpg</code> (0-100) e <code>resolucao_max</code>.</p>
       <p><strong>Atenção:</strong> o script redimensiona as imagens diretamente no .blend atual — salve um backup antes.</p>
     </div>
     <pre><code class="script-code">import bpy
 import os
 
 pasta_saida = "C:/Users/Rafael/Desktop/texturas_jpg/"
-qualidade_jpg = 85  # 0-100, 85 é bom equilíbrio
+qualidade_jpg = 85
 resolucao_max = 2048
 
 os.makedirs(pasta_saida, exist_ok=True)
@@ -1195,11 +1298,11 @@ obj = bpy.context.active_object
 bm = bmesh.from_edit_mesh(obj.data)
 
 direcao = Vector((0, 0, -1))  # -Z (overhang)
-angulo_min = 0  # graus
+angulo_min = 0
 angulo_max = 45
 
 for face in bm.faces:
-    angulo = face.normal.angle(direcao) * 57.2958  # rad → graus
+    angulo = face.normal.angle(direcao) * 57.2958
     if angulo_min <= angulo <= angulo_max:
         face.select = True
 
@@ -1227,7 +1330,7 @@ obj = bpy.context.active_object
 bm = bmesh.from_edit_mesh(obj.data)
 
 for edge in bm.edges:
-    if not edge.smooth:  # edges marcadas como sharp
+    if not edge.smooth:
         edge.select = True
 
 bmesh.update_edit_mesh(obj.data)</code></pre>
