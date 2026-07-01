@@ -47,6 +47,237 @@
     font-weight: 300;
   }
 
+  /* SEÇÃO GUIAS DE WORKFLOW */
+  .guides-section {
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #F3F3F3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title-badge {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: rgba(232, 241, 2, 0.15);
+    color: #E8F102;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  .guide {
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .guide:hover { border-color: #2a2a2a; }
+
+  .guide-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .guide-header:hover { background: #0f0f0f; }
+
+  .guide-header-content { flex: 1; }
+
+  .guide-category {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    background: rgba(232, 241, 2, 0.15);
+    color: #E8F102;
+  }
+
+  .guide-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #F3F3F3;
+  }
+
+  .guide-desc {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .guide-toggle {
+    color: #E8F102;
+    font-size: 20px;
+    font-weight: 400;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    width: 30px;
+    text-align: center;
+  }
+
+  .guide.open .guide-toggle {
+    transform: rotate(45deg);
+  }
+
+  .guide-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background: #060606;
+  }
+
+  .guide.open .guide-body {
+    max-height: 5000px;
+  }
+
+  .guide-content {
+    padding: 24px 28px 32px 28px;
+    color: #ccc;
+    font-size: 13.5px;
+    line-height: 1.75;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .guide-content h4 {
+    color: #E8F102;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .guide-content h4:first-child { margin-top: 0; }
+
+  .guide-content h5 {
+    color: #F3F3F3;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .guide-content p { margin-bottom: 12px; }
+  .guide-content ul, .guide-content ol {
+    margin-left: 22px;
+    margin-bottom: 14px;
+  }
+  .guide-content ul li, .guide-content ol li {
+    margin-bottom: 6px;
+  }
+
+  .guide-content strong { color: #F3F3F3; font-weight: 500; }
+  .guide-content em { color: #888; font-style: italic; }
+
+  .guide-content code {
+    background: #1a1a1a;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #DC0C9F;
+  }
+
+  .guide-content .warning {
+    background: rgba(251, 91, 18, 0.08);
+    border-left: 3px solid #FB5B12;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+
+  .guide-content .warning strong { color: #FB5B12; }
+
+  .guide-content .tip {
+    background: rgba(0, 252, 138, 0.06);
+    border-left: 3px solid #00FC8A;
+    padding: 12px 16px;
+    margin: 14px 0;
+    border-radius: 3px;
+    font-size: 13px;
+  }
+
+  .guide-content .tip strong { color: #00FC8A; }
+
+  .guide-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 12.5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .guide-content table th,
+  .guide-content table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .guide-content table th {
+    color: #E8F102;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 10px;
+    background: #0a0a0a;
+  }
+
+  .guide-content table td { color: #ccc; }
+  .guide-content table td:first-child { color: #F3F3F3; }
+
+  .guide-content .product-block {
+    background: #0a0a0a;
+    border-left: 3px solid #7C16DB;
+    padding: 18px 22px;
+    margin: 16px 0;
+    border-radius: 3px;
+  }
+
+  .guide-content .product-block h5 {
+    margin-top: 0;
+    color: #7C16DB;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  /* BUSCA E FILTROS */
   .search-wrap { margin-bottom: 30px; position: relative; }
 
   .search {
@@ -101,6 +332,7 @@
     color: #fff;
   }
 
+  /* SCRIPTS */
   .script {
     background: #0a0a0a;
     border: 1px solid #1a1a1a;
@@ -204,7 +436,6 @@
 
   .script-notes p { margin-bottom: 8px; }
   .script-notes p:last-child { margin-bottom: 0; }
-
   .script-notes ul { margin-left: 18px; margin-top: 4px; margin-bottom: 4px; }
   .script-notes ul li { margin-bottom: 4px; }
 
@@ -307,6 +538,12 @@
     margin-bottom: 20px;
     font-family: 'JetBrains Mono', monospace;
   }
+
+  .divider {
+    height: 1px;
+    background: #1a1a1a;
+    margin: 60px 0;
+  }
 </style>
 </head>
 <body>
@@ -315,11 +552,272 @@
   <div class="header">
     <div class="brand">mk|3dlabs · scripts library</div>
     <h1>Biblioteca de Scripts Blender</h1>
-    <div class="subtitle">Coleção de scripts Python e dicas para automação no Blender — workflow CAD/visualização de produto</div>
+    <div class="subtitle">Scripts Python, dicas e guias de workflow para o pipeline 3D — CAD, visualização de produto, bake e otimização</div>
+  </div>
+
+  <!-- ==================== SEÇÃO GUIAS DE WORKFLOW ==================== -->
+  <div class="guides-section">
+    <div class="section-title">
+      Guias de Workflow
+      <span class="section-title-badge">Boas Práticas</span>
+    </div>
+    <div class="section-subtitle">Configurações recomendadas por tipo de produto e etapa do pipeline — baseadas em casos reais de projetos mK Studio</div>
+
+    <!-- =========== GUIA: UV MAPPING POR TIPO DE PRODUTO =========== -->
+    <div class="guide" onclick="toggleGuide(this)">
+      <div class="guide-header">
+        <div class="guide-header-content">
+          <div class="guide-category">Guia</div>
+          <div class="guide-title">UV Mapping por tipo de produto</div>
+          <div class="guide-desc">Método recomendado, configurações e armadilhas para cada tipo de produto — automotivo, mobiliário, eletrônicos e imports CAD complexos.</div>
+        </div>
+        <div class="guide-toggle">+</div>
+      </div>
+      <div class="guide-body">
+        <div class="guide-content">
+
+          <h4>Princípio geral</h4>
+          <p>Não existe um método universal de UV que funcione bem para tudo. A escolha correta depende de três fatores: a <strong>topologia da malha</strong> (CAD vs modelagem orgânica), o <strong>tipo de produto</strong> (formatos convexos vs côncavos) e o <strong>uso final</strong> (bake de textura vs textura direta).</p>
+
+          <div class="tip">
+            <strong>Regra prática:</strong> quanto mais complexa a malha (CAD de milhões de faces), mais robusto precisa ser o método de UV — nunca use Smart UV Project em CAD do DeltaGen.
+          </div>
+
+          <h4>Por tipo de produto</h4>
+
+          <div class="product-block">
+            <h5>🚗 Automotivo (carroceria, portas, componentes de carro)</h5>
+            <p><strong>Método recomendado:</strong> <code>Cube Projection</code></p>
+            <p><strong>Por quê:</strong> peças de carro têm predominância de faces alinhadas a eixos ortogonais (laterais em Y, teto em Z, frente/traseira em X). O Cube Projection alinha as ilhas UV naturalmente com essas direções, gerando um layout previsível.</p>
+            <p><strong>Bonus descoberto em projeto:</strong> em carrocerias com espessura de chapa CAD, o Cube Projection tende a <strong>separar automaticamente as faces internas das externas</strong> em ilhas distintas (porque projetam em direções opostas). Isso facilita muito identificar e deletar as faces internas depois.</p>
+            <p><strong>Configuração:</strong></p>
+            <ul>
+              <li>Cube Size: <code>1.0</code> (ajuste se necessário)</li>
+              <li>Depois: <code>UV → Pack Islands</code> com margem <code>0.02–0.05</code></li>
+            </ul>
+            <p><strong>Evite:</strong> Smart UV Project em CAD de carro — cria milhares de ilhas microscópicas (uma por triângulo) e gera um atlas caótico.</p>
+          </div>
+
+          <div class="product-block">
+            <h5>🪑 Mobiliário (cadeiras, mesas, estofados)</h5>
+            <p><strong>Método recomendado:</strong> <code>Smart UV Project</code> com ajuste de ângulo, ou <code>Unwrap</code> com seams manuais</p>
+            <p><strong>Por quê:</strong> mobiliário tem formas mais orgânicas/curvas (encostos, bases, braços) e o Smart UV lida bem com isso quando a malha já foi otimizada. Para peças estruturais mais simples (pernas, travessas), o Unwrap com seams manuais dá controle total.</p>
+            <p><strong>Configuração Smart UV:</strong></p>
+            <ul>
+              <li>Angle Limit: <code>45°–66°</code> (66° pega mais faces em cada ilha)</li>
+              <li>Island Margin: <code>0.01–0.03</code></li>
+              <li>Area Weight: <code>0.0</code></li>
+            </ul>
+            <p><strong>Configuração Unwrap com seams:</strong></p>
+            <ul>
+              <li>Marcar seams em dobras naturais (Ctrl+E → Mark Seam)</li>
+              <li>Seleciona tudo (A) → U → Unwrap</li>
+              <li>Estica ilhas suavemente com "Pin" se necessário</li>
+            </ul>
+          </div>
+
+          <div class="product-block">
+            <h5>📦 Produtos gerais com formas geométricas (eletrônicos, embalagens)</h5>
+            <p><strong>Método recomendado:</strong> <code>Cube Projection</code> ou <code>Unwrap</code> com seams</p>
+            <p><strong>Por quê:</strong> produtos como caixas, eletrodomésticos e eletrônicos têm faces predominantemente ortogonais. Cube funciona bem, mas se o produto tem faces angulares específicas, o Unwrap com seams manuais dá melhor controle.</p>
+          </div>
+
+          <div class="product-block">
+            <h5>⚠️ CAD pesado (imports do DeltaGen, SolidWorks, etc)</h5>
+            <p><strong>Antes de fazer UV: sempre otimize a malha primeiro.</strong></p>
+            <ol>
+              <li>Merge by Distance com threshold <code>0.0001m</code> (limpa vértices duplicados)</li>
+              <li>Deletar faces internas se a peça tem "casca dupla" (script de detecção por normal)</li>
+              <li>Aplicar Decimate ou InstaLOD para reduzir contagem de triângulos</li>
+              <li><strong>Só então</strong> fazer o UV</li>
+            </ol>
+            <div class="warning">
+              <strong>Atenção:</strong> tentar fazer UV em CAD com 4M+ de triângulos gera um atlas com milhares de ilhas minúsculas que é praticamente impossível de organizar bem. Sempre otimize antes.
+            </div>
+          </div>
+
+          <h4>Depois do UV — sempre fazer</h4>
+          <ol>
+            <li><strong>Pack Islands</strong> com margem adequada (0.02–0.05)</li>
+            <li><strong>Recalcular normais</strong> (Shift+N em Edit Mode)</li>
+            <li>Conferir Face Orientation (todas azuis)</li>
+            <li>Se houver seams visíveis marcadas em magenta no Substance, considerar refazer com seams manuais em pontos discretos</li>
+          </ol>
+
+          <h4>Armadilhas comuns</h4>
+          <ul>
+            <li><strong>Ilhas muito juntas:</strong> geram sangramento de textura entre elas — aumente a margem</li>
+            <li><strong>Ilhas muito pequenas:</strong> geram baixa resolução de textura naquela área — considere aumentar sua importância no pack (Area Weight) ou refazer o UV com escala manual</li>
+            <li><strong>Bake Cage error:</strong> UV mal packeado causa problema no bake do Substance — mensagem típica é "UV overlap detected"</li>
+            <li><strong>Seams em lugares visíveis:</strong> marque seams em dobras/vincos naturais, nunca no meio de uma superfície lisa</li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- =========== GUIA: SUBSTANCE PAINTER - BAKE AO =========== -->
+    <div class="guide" onclick="toggleGuide(this)">
+      <div class="guide-header">
+        <div class="guide-header-content">
+          <div class="guide-category">Guia</div>
+          <div class="guide-title">Substance Painter — Bake de Ambient Occlusion</div>
+          <div class="guide-desc">Configurações recomendadas para evitar manchas pretas, seams visíveis e artefatos. Baseado em casos reais de carroceria com espessura CAD.</div>
+        </div>
+        <div class="guide-toggle">+</div>
+      </div>
+      <div class="guide-body">
+        <div class="guide-content">
+
+          <h4>Pré-requisitos no Blender</h4>
+          <p>Antes de exportar para o Substance, garanta que:</p>
+          <ol>
+            <li><strong>Normais recalculadas</strong> (Shift+N em Edit Mode)</li>
+            <li><strong>Face Orientation limpo</strong> (todas as faces externas azuis)</li>
+            <li><strong>UV feito</strong> com método adequado ao produto (ver guia de UV)</li>
+            <li><strong>Merge by Distance</strong> aplicado (remove vértices duplicados)</li>
+            <li><strong>Escala aplicada</strong> (Ctrl+A → Scale) — evita problemas de tamanho no bake</li>
+          </ol>
+
+          <div class="warning">
+            <strong>Faces internas em CAD:</strong> se a peça tem "casca dupla" (superfície externa + interna com espessura), idealmente delete as faces internas antes de exportar. Se não der tempo, o Substance ainda consegue lidar bem com as configurações certas (abaixo).
+          </div>
+
+          <h4>Configurações recomendadas (Ambient Occlusion)</h4>
+
+          <table>
+            <tr>
+              <th>Parâmetro</th>
+              <th>Valor recomendado</th>
+              <th>Por quê</th>
+            </tr>
+            <tr>
+              <td>Tamanho da saída</td>
+              <td>2048</td>
+              <td>Resolução alta esconde artefatos de UV</td>
+            </tr>
+            <tr>
+              <td>Largura de dilatação</td>
+              <td>64</td>
+              <td>Elimina bordas visíveis entre ilhas UV</td>
+            </tr>
+            <tr>
+              <td>Suavização de borda</td>
+              <td>8x MSAA</td>
+              <td>Suaviza pixels nas bordas</td>
+            </tr>
+            <tr>
+              <td>Ângulo de propagação</td>
+              <td>90°</td>
+              <td>Rays só na frente da face, evita internas</td>
+            </tr>
+            <tr>
+              <td>Ignorar Face Traseira</td>
+              <td><strong>Sempre</strong></td>
+              <td>Crítico: elimina manchas pretas</td>
+            </tr>
+            <tr>
+              <td>Auto-oclusão</td>
+              <td>Sempre</td>
+              <td>Permite AO entre partes da mesma peça</td>
+            </tr>
+            <tr>
+              <td>Distância máxima do oclusor</td>
+              <td>0.3–0.5m</td>
+              <td>Evita capturar geometria distante irrelevante</td>
+            </tr>
+            <tr>
+              <td>Distribuição</td>
+              <td>Cosseno</td>
+              <td>Distribuição mais natural de rays</td>
+            </tr>
+            <tr>
+              <td>Qualidade</td>
+              <td>Ultra (256 spp)</td>
+              <td>Reduz ruído no AO final</td>
+            </tr>
+            <tr>
+              <td>Intensidade AO</td>
+              <td>1.0</td>
+              <td>Contraste ideal para visualizador de produto</td>
+            </tr>
+          </table>
+
+          <div class="tip">
+            <strong>A configuração de maior impacto:</strong> <code>Ignorar Face Traseira: Sempre</code> — essa sozinha resolve a maior parte das manchas pretas causadas por faces internas em peças CAD.
+          </div>
+
+          <h4>Troubleshooting</h4>
+
+          <h5>Problema: Manchas pretas irregulares na superfície</h5>
+          <p><strong>Causa provável:</strong> faces internas ou normais invertidas geram sombras estranhas no AO.</p>
+          <p><strong>Solução:</strong></p>
+          <ol>
+            <li>Volta ao Blender, seleciona a peça</li>
+            <li>Edit Mode → A → Shift+N (Recalculate Outside)</li>
+            <li>Confere Face Orientation (tudo azul)</li>
+            <li>Se ainda houver manchas, considere deletar faces internas</li>
+            <li>Re-exporta e refaz o bake com <code>Ignorar Face Traseira: Sempre</code></li>
+          </ol>
+
+          <h5>Problema: Linhas roxas/magenta nas seams do UV</h5>
+          <p><strong>Causa provável:</strong> transições entre ilhas UV visíveis no bake.</p>
+          <p><strong>Soluções:</strong></p>
+          <ul>
+            <li>Aumentar Largura de dilatação para 64 ou 128</li>
+            <li>Ativar Suavização de borda (8x MSAA)</li>
+            <li>Refazer UV com Cube Projection (para carros) ou seams manuais</li>
+            <li>Se as linhas são finas e pouco visíveis, geralmente não são perceptíveis no produto final</li>
+          </ul>
+
+          <h5>Problema: Bake demora muito ou trava</h5>
+          <p><strong>Causa provável:</strong> malha muito pesada ou configurações agressivas demais.</p>
+          <p><strong>Soluções:</strong></p>
+          <ul>
+            <li>Reduzir Qualidade para "Alto" ou "Muito Alto" (menos samples)</li>
+            <li>Reduzir Tamanho da saída para 2048 (ao invés de 4096)</li>
+            <li>Otimizar a malha no InstaLOD antes de bakear</li>
+          </ul>
+
+          <h5>Problema: AO parece "chapado" ou sem profundidade</h5>
+          <p><strong>Causa provável:</strong> intensidade baixa ou distância máxima curta demais.</p>
+          <p><strong>Soluções:</strong></p>
+          <ul>
+            <li>Aumentar Intensidade AO para 1.0</li>
+            <li>Aumentar Distância máxima do oclusor para 0.5–0.7</li>
+            <li>Ajustar Ângulo de propagação para 120°</li>
+          </ul>
+
+          <h4>Workflow recomendado (ordem correta)</h4>
+          <ol>
+            <li><strong>Blender:</strong> otimização, UV, recálculo de normais, export FBX</li>
+            <li><strong>Substance:</strong> importar modelo</li>
+            <li><strong>Substance:</strong> configurar bake com valores da tabela acima</li>
+            <li><strong>Substance:</strong> primeiro bake em qualidade média para preview rápido</li>
+            <li>Se preview OK: rebake em Ultra para versão final</li>
+            <li>Se preview com problemas: ajustar Blender ou configurações antes de gastar tempo com Ultra</li>
+          </ol>
+
+          <h4>Observações finais</h4>
+          <p>O Substance é notavelmente robusto ao lidar com malhas imperfeitas — muitas vezes um AO com pequenas manchas é aceitável no produto final, especialmente em áreas menos visíveis. Não gaste horas caçando perfeição pixel-a-pixel se o resultado no visualizador já ficou bom.</p>
+          <p><strong>Regra do 80/20:</strong> concentre esforço nas áreas visíveis (superfícies externas, faces principais). Áreas ocultas atrás de outras peças no visualizador não precisam de AO perfeito.</p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== SEÇÃO SCRIPTS ==================== -->
+  <div class="section-title" style="margin-bottom: 24px;">
+    Scripts e Automações
+    <span class="section-title-badge" style="background: rgba(124, 22, 219, 0.15); color: #7C16DB;">22 itens</span>
   </div>
 
   <div class="instructions">
-    <h3>Como usar</h3>
+    <h3>Como usar os scripts</h3>
     <ol>
       <li>No Blender, abra a aba <code>Scripting</code> no topo</li>
       <li>Clique em <code>+ New</code> para criar um novo script</li>
@@ -350,7 +848,7 @@
 
   <div class="results-count" id="results-count">22 itens disponíveis</div>
 
-  <!-- =========== EXPORT FBX INDIVIDUAIS (NOVO) =========== -->
+  <!-- =========== EXPORT FBX INDIVIDUAIS =========== -->
   <div class="script" data-cat="export" data-keywords="exportar fbx individual visivel batch lote separado pecas">
     <div class="script-header">
       <div class="script-header-content">
@@ -366,27 +864,24 @@
         <li>Percorre todos os meshes da cena</li>
         <li>Ignora objetos ocultos no outliner (olho, monitor) e collections ocultas/excluídas</li>
         <li>Para cada objeto visível: deseleciona tudo, seleciona só ele, exporta como FBX individual</li>
-        <li>Sanitiza o nome do arquivo (remove caracteres problemáticos como <code>/</code> e <code>:</code>)</li>
+        <li>Sanitiza o nome do arquivo (remove caracteres problemáticos)</li>
         <li>Restaura a seleção original ao final</li>
-        <li>Mostra no console um relatório completo: exportados, ignorados e erros</li>
+        <li>Mostra relatório completo no console: exportados, ignorados e erros</li>
       </ul>
-      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code> com o caminho onde os FBX serão salvos. A pasta é criada automaticamente se não existir.</p>
-      <p><strong>Como usar:</strong> oculte na árvore (outliner) os objetos que NÃO devem ser exportados antes de rodar o script. Tudo que estiver visível na cena será exportado.</p>
+      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code> com o caminho onde os FBX serão salvos.</p>
+      <p><strong>Como usar:</strong> oculte na árvore os objetos que NÃO devem ser exportados antes de rodar.</p>
     </div>
     <pre><code class="script-code">import bpy
 import os
 
-# CONFIGURAR
 pasta_saida = "F:/TRAMPO/METAKOSMOS/3Ds/Stellantis/Fiat Toro/Exports/Individuais/"
 
 os.makedirs(pasta_saida, exist_ok=True)
 
-# Guarda seleção atual
 selecao_original = bpy.context.selected_objects[:]
 ativo_original = bpy.context.view_layer.objects.active
 
 def objeto_visivel(obj):
-    """Checa se o objeto está realmente visível no viewport."""
     if obj.hide_get():
         return False
     if obj.hide_viewport:
@@ -444,7 +939,6 @@ for obj in bpy.data.objects:
         erros.append((obj.name, str(e)))
         print(f"Erro em {obj.name}: {e}")
 
-# Restaura seleção
 bpy.ops.object.select_all(action='DESELECT')
 for obj in selecao_original:
     obj.select_set(True)
@@ -460,7 +954,7 @@ if erros:
         print(f"  - {nome}: {erro}")</code></pre>
   </div>
 
-  <!-- =========== DUPLICATAS: HASH DE GEOMETRIA =========== -->
+  <!-- =========== DUPLICATAS: HASH =========== -->
   <div class="script" data-cat="duplicate" data-keywords="duplicata sobreposta hash geometria verticer identico igual deletar peca">
     <div class="script-header">
       <div class="script-header-content">
@@ -473,21 +967,18 @@ if erros:
     <div class="script-notes">
       <p><strong>O que faz:</strong></p>
       <ul>
-        <li>Calcula um hash único da geometria de cada objeto (posição real dos vértices no espaço mundial)</li>
+        <li>Calcula um hash único da geometria de cada objeto</li>
         <li>Agrupa objetos com hash idêntico (geometria 100% igual)</li>
-        <li>Mantém o primeiro de cada grupo e <strong>seleciona os demais</strong> para você revisar e deletar</li>
+        <li>Mantém o primeiro de cada grupo e <strong>seleciona os demais</strong></li>
       </ul>
-      <p><strong>Quando usar:</strong> quando os métodos mais simples deram muitos falsos positivos, ou quando você quer ter certeza de que está deletando apenas duplicatas reais.</p>
-      <p><strong>Pega:</strong> <span class="label-yes">✓</span> peças sobrepostas exatas | <strong>Não pega:</strong> <span class="label-no">✗</span> peças espelhadas | <span class="label-no">✗</span> peças em array (posições diferentes)</p>
-      <p><strong>Após rodar:</strong> as duplicatas ficam selecionadas. Confira no outliner e pressione <code>X → Delete</code> para remover.</p>
+      <p><strong>Pega:</strong> <span class="label-yes">✓</span> peças sobrepostas exatas | <strong>Não pega:</strong> <span class="label-no">✗</span> peças espelhadas | <span class="label-no">✗</span> peças em array</p>
+      <p><strong>Após rodar:</strong> confira e pressione <code>X → Delete</code>.</p>
     </div>
     <pre><code class="script-code">import bpy
 import hashlib
 
 def hash_geometria(obj):
-    """Gera um hash único baseado na geometria real do objeto."""
     mesh = obj.data
-    
     matrix = obj.matrix_world
     vertices_mundiais = []
     for v in mesh.vertices:
@@ -497,9 +988,7 @@ def hash_geometria(obj):
             round(pos_mundial.y, 4),
             round(pos_mundial.z, 4),
         ))
-    
     vertices_mundiais.sort()
-    
     dados = str(vertices_mundiais).encode('utf-8')
     return hashlib.md5(dados).hexdigest()
 
@@ -518,7 +1007,6 @@ total_analisados = 0
 for chave_rapida, objetos in candidatos.items():
     if len(objetos) < 2:
         continue
-    
     for obj in objetos:
         total_analisados += 1
         hash_geo = hash_geometria(obj)
@@ -540,29 +1028,21 @@ for hash_geo, objetos in grupos_duplicados.items():
             count += 1
         print()
 
-print(f"\nTotal: {count} duplicatas selecionadas para deletar.")
-print("Confira visualmente antes de pressionar X.")</code></pre>
+print(f"\nTotal: {count} duplicatas selecionadas para deletar.")</code></pre>
   </div>
 
-  <!-- =========== DUPLICATAS: POSIÇÃO EXATA =========== -->
+  <!-- =========== DUPLICATAS: POSIÇÃO =========== -->
   <div class="script" data-cat="duplicate" data-keywords="duplicata posicao rotacao escala rapido identificar listar">
     <div class="script-header">
       <div class="script-header-content">
         <div class="script-category cat-duplicate">Duplicatas</div>
         <div class="script-title">Listar duplicatas por posição/rotação/escala</div>
-        <div class="script-desc">Método rápido que apenas <strong>lista</strong> (não seleciona) objetos com mesma transformação no espaço. Útil para fazer uma auditoria inicial.</div>
+        <div class="script-desc">Método rápido que apenas <strong>lista</strong> (não seleciona) objetos com mesma transformação no espaço. Útil para auditoria inicial.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Compara <code>location</code>, <code>rotation</code> e <code>scale</code> de todos os meshes</li>
-        <li>Lista no console os grupos de objetos com mesma transformação</li>
-        <li>Não seleciona nem deleta nada — apenas relatório</li>
-      </ul>
-      <p><strong>Quando usar:</strong> para um diagnóstico rápido de quantas duplicatas existem na cena antes de rodar o método de hash (que é mais pesado).</p>
-      <p><strong>Limitação:</strong> <span class="label-warn">⚠</span> se você fez <code>Apply Scale/Rotation</code> nos objetos, esse método pode dar falsos positivos porque todos terão <code>scale=(1,1,1)</code> e <code>rotation=(0,0,0)</code>.</p>
+      <p><strong>Limitação:</strong> <span class="label-warn">⚠</span> se você fez Apply Scale/Rotation, pode dar falsos positivos.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -590,7 +1070,7 @@ for obj in bpy.data.objects:
         grupos[chave] = []
     grupos[chave].append(obj)
 
-print("=== Possíveis duplicatas (mesma posição/rotação/escala) ===\n")
+print("=== Possíveis duplicatas ===\n")
 for chave, objetos in grupos.items():
     if len(objetos) > 1:
         print(f"Grupo com {len(objetos)} objetos:")
@@ -605,18 +1085,12 @@ for chave, objetos in grupos.items():
       <div class="script-header-content">
         <div class="script-category cat-duplicate">Duplicatas</div>
         <div class="script-title">Selecionar duplicatas para revisão visual</div>
-        <div class="script-desc">Versão intermediária — usa posição + contagem de vértices para detectar candidatos e <strong>seleciona</strong> as duplicatas (sem deletar) para você revisar visualmente.</div>
+        <div class="script-desc">Versão intermediária — usa posição + contagem de vértices e seleciona (sem deletar) para revisão.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Compara posição + número de vértices/faces (mais leve que o método hash)</li>
-        <li>Seleciona as duplicatas no viewport (mantém uma de cada grupo)</li>
-      </ul>
-      <p><strong>Quando usar:</strong> cenas pequenas/médias onde você quer revisar manualmente antes de deletar. Se a quantidade de falsos positivos for alta, use o método de hash.</p>
-      <p><strong>Após rodar:</strong> abra o outliner, confirme as seleções e pressione <code>X → Delete</code>.</p>
+      <p><strong>Após rodar:</strong> confirme as seleções e pressione <code>X → Delete</code>.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -648,8 +1122,7 @@ for chave, objetos in grupos.items():
             obj.select_set(True)
             count += 1
 
-print(f"{count} duplicatas selecionadas para revisão.")
-print("Verifique visualmente antes de deletar com X.")</code></pre>
+print(f"{count} duplicatas selecionadas para revisão.")</code></pre>
   </div>
 
   <!-- =========== ANIMAÇÕES =========== -->
@@ -658,18 +1131,12 @@ print("Verifique visualmente antes de deletar com X.")</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-cleanup">Limpeza</div>
         <div class="script-title">Remover animações de todos os objetos</div>
-        <div class="script-desc">Limpa keyframes, drivers, animações de shape keys e actions órfãs de todos os objetos da cena (meshes, luzes, câmeras, empties).</div>
+        <div class="script-desc">Limpa keyframes, drivers, animações de shape keys e actions órfãs de todos os objetos da cena.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Remove todos os keyframes e drivers dos objetos</li>
-        <li>Limpa animações de mesh data e shape keys</li>
-        <li>Remove actions órfãs da memória</li>
-      </ul>
-      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve um backup antes. Remove <strong>todos</strong> os keyframes, inclusive de objetos que você queira manter animados.</p>
+      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve um backup antes.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -710,7 +1177,7 @@ print(f"\nTotal: {count} objetos com animação removida.")</code></pre>
         <li><code>Automatic</code> → inclui todas as imagens (padrão, arquivo pesado)</li>
         <li><code>None</code> → exporta sem nenhuma textura (arquivo leve)</li>
       </ul>
-      <p>Ideal quando você vai reaplicar as texturas em outro lugar (ex: visualizador 3D do mk|Studio). Combina bem com conversão das texturas para JPG ≤2MB separadamente.</p>
+      <p>Ideal quando você vai reaplicar as texturas em outro lugar (ex: visualizador 3D do mk|Studio).</p>
     </div>
   </div>
 
@@ -725,14 +1192,8 @@ print(f"\nTotal: {count} objetos com animação removida.")</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Percorre todas as imagens da cena</li>
-        <li>Redimensiona se forem maiores que o limite definido</li>
-        <li>Exporta como JPG na qualidade configurada para uma pasta de saída</li>
-      </ul>
-      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code>, <code>qualidade_jpg</code> (0-100) e <code>resolucao_max</code>.</p>
-      <p><strong>Atenção:</strong> o script redimensiona as imagens diretamente no .blend atual — salve um backup antes.</p>
+      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code>, <code>qualidade_jpg</code> e <code>resolucao_max</code>.</p>
+      <p><strong>Atenção:</strong> o script redimensiona as imagens diretamente no .blend — salve backup.</p>
     </div>
     <pre><code class="script-code">import bpy
 import os
@@ -769,13 +1230,12 @@ print("\nConcluído!")</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-cleanup">Limpeza</div>
         <div class="script-title">Recalcular normais (resolver faces vermelhas)</div>
-        <div class="script-desc">Recalcula todas as normais para apontarem para fora — resolve faces invertidas (vermelhas no Face Orientation) em uma operação. Funciona muito bem em malhas CAD.</div>
+        <div class="script-desc">Recalcula todas as normais para apontarem para fora — resolve faces invertidas em uma operação.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> aplica <code>Mesh → Normals → Recalculate Outside</code> (Shift+N) em todos os objetos selecionados de uma vez.</p>
-      <p><strong>Como usar:</strong> selecione no viewport os objetos que quer corrigir antes de rodar o script.</p>
+      <p><strong>Como usar:</strong> selecione no viewport os objetos que quer corrigir antes de rodar.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -798,19 +1258,12 @@ print("Concluído.")</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-mesh">Meshes</div>
         <div class="script-title">Join por material específico</div>
-        <div class="script-desc">Faz join automático de todos os objetos que usam um material específico (em qualquer slot). Lista os objetos antes de juntar para confirmação.</div>
+        <div class="script-desc">Faz join automático de todos os objetos que usam um material específico (em qualquer slot).</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Procura todos os objetos que têm o material especificado em qualquer slot</li>
-        <li>Lista no console quais objetos foram encontrados</li>
-        <li>Faz join de todos em um único objeto</li>
-      </ul>
-      <p><strong>Configurar:</strong> mude <code>nome_material</code> para o nome exato do material desejado.</p>
-      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve antes.</p>
+      <p><strong>Configurar:</strong> mude <code>nome_material</code> para o nome exato do material.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -851,18 +1304,12 @@ else:
       <div class="script-header-content">
         <div class="script-category cat-mesh">Meshes</div>
         <div class="script-title">Join de todos os objetos por material (cena toda)</div>
-        <div class="script-desc">Agrupa e faz join de todos os objetos da cena que compartilham o mesmo material no primeiro slot — útil para consolidar geometria fragmentada de imports CAD.</div>
+        <div class="script-desc">Agrupa e faz join de todos os objetos da cena que compartilham o mesmo material no primeiro slot.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Agrupa todos os objetos da cena pelo material do primeiro slot</li>
-        <li>Faz join automático de cada grupo com mais de 1 objeto</li>
-        <li>Mostra no console quantos grupos foram unidos</li>
-      </ul>
-      <p><strong>Atenção:</strong> salve o arquivo antes — operação afeta toda a cena de uma vez. O nome do objeto resultante vem do primeiro do grupo.</p>
+      <p><strong>Atenção:</strong> salve o arquivo antes.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -910,18 +1357,12 @@ join_por_material()</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-texture">Texturas</div>
         <div class="script-title">Encontrar objetos com texturas faltantes</div>
-        <div class="script-desc">Lista quais materiais e objetos usam texturas que não foram encontradas no caminho original (típico de imports do DeltaGen).</div>
+        <div class="script-desc">Lista quais materiais e objetos usam texturas que não foram encontradas no caminho original.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Percorre todos os materiais da cena buscando os nomes parciais informados</li>
-        <li>Lista no console quais objetos usam materiais com texturas faltantes</li>
-        <li>Não modifica nada — apenas relatório</li>
-      </ul>
-      <p><strong>Configurar:</strong> edite a lista <code>missing</code> com nomes parciais das texturas que apareceram em erros.</p>
+      <p><strong>Configurar:</strong> edite a lista <code>missing</code> com nomes parciais das texturas.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -943,13 +1384,12 @@ for mat in bpy.data.materials:
       <div class="script-header-content">
         <div class="script-category cat-texture">Texturas</div>
         <div class="script-title">Remover referência de textura faltante</div>
-        <div class="script-desc">Desconecta nodes Image Texture que apontam para arquivos não encontrados, eliminando os erros de pack.</div>
+        <div class="script-desc">Desconecta nodes Image Texture que apontam para arquivos não encontrados.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> remove a referência de imagem dos nodes Image Texture que contenham o nome informado, mantendo o resto do material intacto.</p>
-      <p><strong>Configurar:</strong> substitua <code>'COL_LedOff_GEN_D'</code> pelo nome parcial da textura a remover.</p>
+      <p><strong>Configurar:</strong> substitua <code>'COL_LedOff_GEN_D'</code> pelo nome parcial da textura.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -968,12 +1408,9 @@ for mat in bpy.data.materials:
       <div class="script-header-content">
         <div class="script-category cat-texture">Texturas</div>
         <div class="script-title">Substituir textura faltante por placeholder</div>
-        <div class="script-desc">Cria uma imagem em branco e substitui as texturas faltantes — útil quando o material precisa permanecer funcional.</div>
+        <div class="script-desc">Cria uma imagem em branco e substitui as texturas faltantes.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
-    </div>
-    <div class="script-notes">
-      <p><strong>O que faz:</strong> cria uma imagem placeholder em branco (256x256) e substitui todas as referências da textura faltante por ela. Mantém os nodes conectados.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -994,18 +1431,12 @@ for mat in bpy.data.materials:
       <div class="script-header-content">
         <div class="script-category cat-material">Materiais</div>
         <div class="script-title">Substituir materiais por prefixo</div>
-        <div class="script-desc">Substitui todos os materiais que começam com um prefixo específico por um material destino. Ideal para consolidar variações de um mesmo material CAD.</div>
+        <div class="script-desc">Substitui todos os materiais que começam com um prefixo específico por um material destino.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong></p>
-      <ul>
-        <li>Procura materiais que começam com o prefixo informado</li>
-        <li>Substitui todos por um único material destino</li>
-        <li>Lista os materiais únicos que foram afetados</li>
-      </ul>
-      <p><strong>Configurar:</strong> edite <code>prefixo_origem</code> e <code>material_destino</code>. O material destino precisa existir na cena.</p>
+      <p><strong>Configurar:</strong> edite <code>prefixo_origem</code> e <code>material_destino</code>.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1037,12 +1468,9 @@ else:
       <div class="script-header-content">
         <div class="script-category cat-material">Materiais</div>
         <div class="script-title">Consolidar materiais duplicados (.001, .002)</div>
-        <div class="script-desc">Detecta materiais com sufixos numéricos (.001, .002, .003) e consolida tudo no material base original. Útil para limpar duplicações que o Blender cria ao colar/importar.</div>
+        <div class="script-desc">Detecta materiais com sufixos numéricos e consolida no material base.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
-    </div>
-    <div class="script-notes">
-      <p><strong>O que faz:</strong> procura materiais com sufixos numéricos no nome e, se existir um material base sem sufixo, substitui todas as ocorrências do duplicado pelo original.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1079,12 +1507,9 @@ consolidar_materiais()</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-material">Materiais</div>
         <div class="script-title">Consolidar instâncias de materiais com mesmo nome</div>
-        <div class="script-desc">Para casos onde múltiplos materiais têm o mesmo nome exato (datablocks separados). Mantém o de maior número de usuários e remove os órfãos.</div>
+        <div class="script-desc">Mantém o material com mais usuários e remove os órfãos.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
-    </div>
-    <div class="script-notes">
-      <p><strong>O que faz:</strong> agrupa materiais que têm exatamente o mesmo nome, mantém o que tem mais usuários e substitui as demais ocorrências por ele. No final, remove os órfãos.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1119,13 +1544,12 @@ consolidar_por_usuarios()</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-mesh">Meshes</div>
         <div class="script-title">Join de objetos por nome base</div>
-        <div class="script-desc">Agrupa objetos com o mesmo nome base (ignorando sufixos .001, .002) e faz join automático em toda a cena.</div>
+        <div class="script-desc">Agrupa objetos com o mesmo nome base e faz join automático na cena toda.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> identifica objetos cujos nomes diferem apenas pelo sufixo numérico (.001, .002) e os une em um só. Útil para consolidar imports CAD onde a mesma peça vem em múltiplas instâncias.</p>
-      <p><strong>Atenção:</strong> salve o arquivo antes — operação irreversível sem Ctrl+Z.</p>
+      <p><strong>Atenção:</strong> salve o arquivo antes.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1182,13 +1606,12 @@ join_por_nome_base()</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-mesh">Meshes</div>
         <div class="script-title">Join por nome base em collection específica</div>
-        <div class="script-desc">Versão controlada do join que opera apenas dentro de uma collection nomeada — evita afetar o resto da cena.</div>
+        <div class="script-desc">Versão controlada — opera apenas dentro de uma collection nomeada.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> mesmo comportamento do "Join por nome base", mas limitado aos objetos de uma collection específica. Ideal quando você quer testar a operação numa parte isolada da cena antes.</p>
-      <p><strong>Configurar:</strong> mude <code>"Collection 2"</code> na última linha para o nome da sua collection.</p>
+      <p><strong>Configurar:</strong> mude <code>"Collection 2"</code> para o nome da sua collection.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1250,13 +1673,12 @@ join_por_nome_base_collection("Collection 2")</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-cleanup">Limpeza</div>
         <div class="script-title">Limpar geometria em múltiplos objetos</div>
-        <div class="script-desc">Aplica Merge by Distance e Delete Loose em todos os objetos selecionados — útil para limpar imports CAD em lote.</div>
+        <div class="script-desc">Aplica Merge by Distance e Delete Loose em todos os objetos selecionados.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> para cada objeto selecionado, entra em Edit Mode e executa Merge by Distance (threshold 0.0001m) seguido de Delete Loose (remove vértices e edges órfãos). Sai do Edit Mode automaticamente.</p>
-      <p><strong>Como usar:</strong> selecione os objetos que quer limpar antes de rodar o script.</p>
+      <p><strong>Como usar:</strong> selecione os objetos que quer limpar antes de rodar.</p>
     </div>
     <pre><code class="script-code">import bpy
 
@@ -1282,13 +1704,12 @@ print("Concluído.")</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-uv">UV/Seleção</div>
         <div class="script-title">Selecionar faces por ângulo da normal</div>
-        <div class="script-desc">Seleciona faces baseado no ângulo entre a normal e uma direção definida — útil para overhangs, faces voltadas para baixo, etc.</div>
+        <div class="script-desc">Seleciona faces baseado no ângulo entre a normal e uma direção definida.</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> calcula o ângulo entre cada face do mesh e o vetor de direção informado. Seleciona apenas as faces que caem dentro do range de ângulos especificado.</p>
-      <p><strong>Configurar:</strong> ajuste <code>direcao</code> (vetor de referência), <code>angulo_min</code> e <code>angulo_max</code>. Precisa estar em Edit Mode com o objeto ativo.</p>
+      <p><strong>Configurar:</strong> ajuste <code>direcao</code>, <code>angulo_min</code> e <code>angulo_max</code>. Precisa estar em Edit Mode.</p>
     </div>
     <pre><code class="script-code">import bpy
 import bmesh
@@ -1297,7 +1718,7 @@ from mathutils import Vector
 obj = bpy.context.active_object
 bm = bmesh.from_edit_mesh(obj.data)
 
-direcao = Vector((0, 0, -1))  # -Z (overhang)
+direcao = Vector((0, 0, -1))
 angulo_min = 0
 angulo_max = 45
 
@@ -1315,12 +1736,11 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
       <div class="script-header-content">
         <div class="script-category cat-uv">UV/Seleção</div>
         <div class="script-title">Selecionar arestas marcadas como Sharp</div>
-        <div class="script-desc">Seleciona todas as edges que têm a marcação Sharp (não baseada em ângulo, mas em mark sharp manual).</div>
+        <div class="script-desc">Seleciona todas as edges que têm a marcação Sharp (mark sharp manual).</div>
       </div>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> percorre todas as arestas e seleciona as que estão marcadas como Sharp (independente do ângulo).</p>
       <p><strong>Atenção:</strong> precisa estar em Edit Mode com Edge Select Mode ativo.</p>
     </div>
     <pre><code class="script-code">import bpy
@@ -1347,8 +1767,7 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
       <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
     </div>
     <div class="script-notes">
-      <p><strong>O que faz:</strong> apaga todos os arquivos <code>cached_RR_*</code> da pasta Temp do Windows. Resolve travamentos do compositor após render quando há acentos no nome da cena.</p>
-      <p><strong>Onde rodar:</strong> este é um comando do <code>PowerShell</code> do Windows, não do Blender. Abre o Terminal e cola.</p>
+      <p><strong>Onde rodar:</strong> PowerShell do Windows, não o Blender.</p>
     </div>
     <pre><code class="script-code">Get-ChildItem "$env:TEMP\cached_RR_*" | Remove-Item -Force</code></pre>
   </div>
@@ -1375,6 +1794,10 @@ bmesh.update_edit_mesh(obj.data)</code></pre>
         btn.classList.remove('copied');
       }, 2000);
     });
+  }
+
+  function toggleGuide(guide) {
+    guide.classList.toggle('open');
   }
 
   const search = document.getElementById('search');
