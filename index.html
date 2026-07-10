@@ -47,10 +47,7 @@
     font-weight: 300;
   }
 
-  /* SEÇÃO GUIAS DE WORKFLOW */
-  .guides-section {
-    margin-bottom: 60px;
-  }
+  .guides-section { margin-bottom: 60px; }
 
   .section-title {
     font-size: 20px;
@@ -277,7 +274,6 @@
     margin-bottom: 12px;
   }
 
-  /* BUSCA E FILTROS */
   .search-wrap { margin-bottom: 30px; position: relative; }
 
   .search {
@@ -332,7 +328,6 @@
     color: #fff;
   }
 
-  /* SCRIPTS */
   .script {
     background: #0a0a0a;
     border: 1px solid #1a1a1a;
@@ -563,7 +558,7 @@
     </div>
     <div class="section-subtitle">Configurações recomendadas por tipo de produto e etapa do pipeline — baseadas em casos reais de projetos mK Studio</div>
 
-    <!-- =========== GUIA: UV MAPPING POR TIPO DE PRODUTO =========== -->
+    <!-- GUIA: UV MAPPING -->
     <div class="guide" onclick="toggleGuide(this)">
       <div class="guide-header">
         <div class="guide-header-content">
@@ -575,7 +570,6 @@
       </div>
       <div class="guide-body">
         <div class="guide-content">
-
           <h4>Princípio geral</h4>
           <p>Não existe um método universal de UV que funcione bem para tudo. A escolha correta depende de três fatores: a <strong>topologia da malha</strong> (CAD vs modelagem orgânica), o <strong>tipo de produto</strong> (formatos convexos vs côncavos) e o <strong>uso final</strong> (bake de textura vs textura direta).</p>
 
@@ -651,12 +645,11 @@
             <li><strong>Bake Cage error:</strong> UV mal packeado causa problema no bake do Substance — mensagem típica é "UV overlap detected"</li>
             <li><strong>Seams em lugares visíveis:</strong> marque seams em dobras/vincos naturais, nunca no meio de uma superfície lisa</li>
           </ul>
-
         </div>
       </div>
     </div>
 
-    <!-- =========== GUIA: SUBSTANCE PAINTER - BAKE AO =========== -->
+    <!-- GUIA: SUBSTANCE PAINTER BAKE AO -->
     <div class="guide" onclick="toggleGuide(this)">
       <div class="guide-header">
         <div class="guide-header-content">
@@ -668,7 +661,6 @@
       </div>
       <div class="guide-body">
         <div class="guide-content">
-
           <h4>Pré-requisitos no Blender</h4>
           <p>Antes de exportar para o Substance, garanta que:</p>
           <ol>
@@ -693,7 +685,7 @@
             </tr>
             <tr>
               <td>Tamanho da saída</td>
-              <td>2048</td>
+              <td>2048 ou 4096</td>
               <td>Resolução alta esconde artefatos de UV</td>
             </tr>
             <tr>
@@ -801,7 +793,6 @@
           <h4>Observações finais</h4>
           <p>O Substance é notavelmente robusto ao lidar com malhas imperfeitas — muitas vezes um AO com pequenas manchas é aceitável no produto final, especialmente em áreas menos visíveis. Não gaste horas caçando perfeição pixel-a-pixel se o resultado no visualizador já ficou bom.</p>
           <p><strong>Regra do 80/20:</strong> concentre esforço nas áreas visíveis (superfícies externas, faces principais). Áreas ocultas atrás de outras peças no visualizador não precisam de AO perfeito.</p>
-
         </div>
       </div>
     </div>
@@ -813,7 +804,7 @@
   <!-- ==================== SEÇÃO SCRIPTS ==================== -->
   <div class="section-title" style="margin-bottom: 24px;">
     Scripts e Automações
-    <span class="section-title-badge" style="background: rgba(124, 22, 219, 0.15); color: #7C16DB;">22 itens</span>
+    <span class="section-title-badge" style="background: rgba(124, 22, 219, 0.15); color: #7C16DB;">21 itens</span>
   </div>
 
   <div class="instructions">
@@ -846,7 +837,137 @@
     <button class="filter-btn" data-cat="tip">Dicas</button>
   </div>
 
-  <div class="results-count" id="results-count">22 itens disponíveis</div>
+  <div class="results-count" id="results-count">21 itens disponíveis</div>
+
+  <!-- =========== LIMPEZA COMPLETA DE MATERIAIS E SLOTS (NOVO) =========== -->
+  <div class="script" data-cat="material" data-keywords="limpeza completa materiais slots duplicados consolidar instalod sufixo 001 002 mesmo nome">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-material">Materiais</div>
+        <div class="script-title">Limpeza completa de materiais e slots</div>
+        <div class="script-desc">Consolida materiais duplicados (por sufixo .001/.002 e por mesmo nome) e remove slots duplicados dos objetos — tudo em uma operação. Ideal após import do InstaLOD.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz (3 etapas em sequência):</strong></p>
+      <ul>
+        <li><strong>1.</strong> Consolida materiais com sufixo numérico (.001, .002) no material base</li>
+        <li><strong>2.</strong> Consolida instâncias com mesmo nome (mantém o de mais usuários)</li>
+        <li><strong>3.</strong> Remove slots duplicados dos objetos e reatribui os índices das faces automaticamente</li>
+        <li>Ao final, remove materiais órfãos com <code>orphans_purge</code></li>
+      </ul>
+      <p><strong>Quando usar:</strong> após import do InstaLOD (que costuma criar duas cópias do mesmo material com nomes idênticos), depois de importar FBX/OBJ de fontes externas, ou sempre que precisar limpar a estrutura de materiais.</p>
+      <p><strong>Atenção:</strong> operação irreversível sem Ctrl+Z — salve backup do .blend antes. Preserva a atribuição de face por material (não bagunça UV nem shaders).</p>
+    </div>
+    <pre><code class="script-code">import bpy
+
+def limpeza_completa_materiais():
+    """
+    Faz três operações em sequência:
+    1. Consolida materiais com sufixo numérico (.001, .002) no material base
+    2. Consolida instâncias com mesmo nome (mantém o de mais usuários)
+    3. Remove slots duplicados dos objetos
+    """
+    print("=== LIMPEZA COMPLETA DE MATERIAIS ===\n")
+    
+    # ETAPA 1: Consolidar materiais com sufixo numérico
+    print("[1/3] Consolidando materiais com sufixo (.001, .002)...")
+    consolidados_sufixo = {}
+    
+    for mat in bpy.data.materials:
+        if '.' in mat.name:
+            partes = mat.name.rsplit('.', 1)
+            if partes[1].isdigit():
+                nome_base = partes[0]
+                mat_base = bpy.data.materials.get(nome_base)
+                if mat_base and mat_base != mat:
+                    consolidados_sufixo[mat.name] = mat_base
+    
+    count_sufixo = 0
+    for obj in bpy.data.objects:
+        for slot in obj.material_slots:
+            if slot.material and slot.material.name in consolidados_sufixo:
+                slot.material = consolidados_sufixo[slot.material.name]
+                count_sufixo += 1
+    
+    print(f"    {count_sufixo} slots consolidados (base sem sufixo)")
+    print(f"    {len(consolidados_sufixo)} materiais únicos afetados\n")
+    
+    # ETAPA 2: Consolidar instâncias com mesmo nome
+    print("[2/3] Consolidando instâncias com mesmo nome...")
+    por_nome = {}
+    for mat in bpy.data.materials:
+        if mat.name not in por_nome:
+            por_nome[mat.name] = []
+        por_nome[mat.name].append(mat)
+    
+    count_instancias = 0
+    for nome, mats in por_nome.items():
+        if len(mats) > 1:
+            principal = max(mats, key=lambda m: m.users)
+            for obj in bpy.data.objects:
+                for slot in obj.material_slots:
+                    if slot.material in mats and slot.material != principal:
+                        slot.material = principal
+                        count_instancias += 1
+    
+    print(f"    {count_instancias} slots consolidados (mesmo nome)\n")
+    
+    # ETAPA 3: Remover slots duplicados dos objetos
+    print("[3/3] Removendo slots duplicados dos objetos...")
+    count_slots_removidos = 0
+    objetos_afetados = 0
+    
+    for obj in bpy.data.objects:
+        if obj.type != 'MESH':
+            continue
+        
+        materiais_vistos = {}
+        slots_para_remover = []
+        remap = {}
+        
+        for i, slot in enumerate(obj.material_slots):
+            mat = slot.material
+            if mat is None:
+                continue
+            
+            if mat.name in materiais_vistos:
+                slots_para_remover.append(i)
+                remap[i] = materiais_vistos[mat.name]
+            else:
+                materiais_vistos[mat.name] = i
+                remap[i] = i
+        
+        if not slots_para_remover:
+            continue
+        
+        if obj.data.polygons:
+            for poly in obj.data.polygons:
+                if poly.material_index in remap:
+                    poly.material_index = remap[poly.material_index]
+        
+        bpy.context.view_layer.objects.active = obj
+        for idx in sorted(slots_para_remover, reverse=True):
+            obj.active_material_index = idx
+            bpy.ops.object.material_slot_remove()
+            count_slots_removidos += 1
+        
+        objetos_afetados += 1
+    
+    print(f"    {count_slots_removidos} slots removidos em {objetos_afetados} objetos\n")
+    
+    # Limpeza final
+    bpy.ops.outliner.orphans_purge(do_recursive=True)
+    
+    print("=== CONCLUÍDO ===")
+    print(f"Total de operações:")
+    print(f"  - Slots consolidados por sufixo: {count_sufixo}")
+    print(f"  - Slots consolidados por nome:   {count_instancias}")
+    print(f"  - Slots duplicados removidos:    {count_slots_removidos}")
+
+limpeza_completa_materiais()</code></pre>
+  </div>
 
   <!-- =========== EXPORT FBX INDIVIDUAIS =========== -->
   <div class="script" data-cat="export" data-keywords="exportar fbx individual visivel batch lote separado pecas">
@@ -1460,82 +1581,6 @@ else:
     for m in sorted(materiais_afetados):
         print(f"  {m}")
     print(f"\nTotal: {count} slots substituídos.")</code></pre>
-  </div>
-
-  <!-- =========== CONSOLIDAR DUPLICADOS =========== -->
-  <div class="script" data-cat="material" data-keywords="consolidar duplicado sufixo 001 002 limpar materiais">
-    <div class="script-header">
-      <div class="script-header-content">
-        <div class="script-category cat-material">Materiais</div>
-        <div class="script-title">Consolidar materiais duplicados (.001, .002)</div>
-        <div class="script-desc">Detecta materiais com sufixos numéricos e consolida no material base.</div>
-      </div>
-      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
-    </div>
-    <pre><code class="script-code">import bpy
-
-def consolidar_materiais():
-    count = 0
-    materiais_consolidados = {}
-
-    for mat in bpy.data.materials:
-        if '.' in mat.name:
-            partes = mat.name.rsplit('.', 1)
-            if partes[1].isdigit():
-                nome_base = partes[0]
-                mat_base = bpy.data.materials.get(nome_base)
-                if mat_base:
-                    materiais_consolidados[mat.name] = mat_base
-
-    for obj in bpy.data.objects:
-        for slot in obj.material_slots:
-            if slot.material and slot.material.name in materiais_consolidados:
-                original = materiais_consolidados[slot.material.name]
-                print(f"{obj.name}: {slot.material.name} → {original.name}")
-                slot.material = original
-                count += 1
-
-    print(f"\nTotal: {count} slots consolidados.")
-    print(f"Materiais únicos consolidados: {len(materiais_consolidados)}")
-
-consolidar_materiais()</code></pre>
-  </div>
-
-  <!-- =========== CONSOLIDAR INSTÂNCIAS =========== -->
-  <div class="script" data-cat="material" data-keywords="instancia mesmo nome consolidar duplicado usuarios">
-    <div class="script-header">
-      <div class="script-header-content">
-        <div class="script-category cat-material">Materiais</div>
-        <div class="script-title">Consolidar instâncias de materiais com mesmo nome</div>
-        <div class="script-desc">Mantém o material com mais usuários e remove os órfãos.</div>
-      </div>
-      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
-    </div>
-    <pre><code class="script-code">import bpy
-
-def consolidar_por_usuarios():
-    count = 0
-    
-    por_nome = {}
-    for mat in bpy.data.materials:
-        if mat.name not in por_nome:
-            por_nome[mat.name] = []
-        por_nome[mat.name].append(mat)
-    
-    for nome, mats in por_nome.items():
-        if len(mats) > 1:
-            principal = max(mats, key=lambda m: m.users)
-            print(f"\nConsolidando: {nome} ({len(mats)} cópias, mantendo com {principal.users} usuários)")
-            for obj in bpy.data.objects:
-                for slot in obj.material_slots:
-                    if slot.material in mats and slot.material != principal:
-                        slot.material = principal
-                        count += 1
-    
-    print(f"\nTotal: {count} slots consolidados.")
-    bpy.ops.outliner.orphans_purge(do_recursive=True)
-
-consolidar_por_usuarios()</code></pre>
   </div>
 
   <!-- =========== JOIN POR NOME BASE =========== -->
