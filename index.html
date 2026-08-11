@@ -804,7 +804,7 @@
   <!-- ==================== SEÇÃO SCRIPTS ==================== -->
   <div class="section-title" style="margin-bottom: 24px;">
     Scripts e Automações
-    <span class="section-title-badge" style="background: rgba(124, 22, 219, 0.15); color: #7C16DB;">21 itens</span>
+    <span class="section-title-badge" style="background: rgba(124, 22, 219, 0.15); color: #7C16DB;">22 itens</span>
   </div>
 
   <div class="instructions">
@@ -837,9 +837,138 @@
     <button class="filter-btn" data-cat="tip">Dicas</button>
   </div>
 
-  <div class="results-count" id="results-count">21 itens disponíveis</div>
+  <div class="results-count" id="results-count">22 itens disponíveis</div>
 
-  <!-- =========== LIMPEZA COMPLETA DE MATERIAIS E SLOTS (NOVO) =========== -->
+  <!-- =========== EXPORT GLB INDIVIDUAIS (NOVO) =========== -->
+  <div class="script" data-cat="export" data-keywords="exportar glb individual visivel batch lote draco compressao visualizador">
+    <div class="script-header">
+      <div class="script-header-content">
+        <div class="script-category cat-export">Export</div>
+        <div class="script-title">Exportar objetos visíveis como GLB individuais (com Draco)</div>
+        <div class="script-desc">Exporta cada objeto visível da cena como um arquivo GLB separado, com compressão Draco ativada — essencial para o visualizador 3D web.</div>
+      </div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+    </div>
+    <div class="script-notes">
+      <p><strong>O que faz:</strong></p>
+      <ul>
+        <li>Percorre todos os meshes da cena, ignora objetos ocultos no outliner (olho, monitor, collections fechadas)</li>
+        <li>Para cada objeto visível: exporta como GLB individual com <strong>compressão Draco sempre ativada</strong></li>
+        <li>Sanitiza o nome do arquivo e restaura a seleção original ao final</li>
+        <li>Mostra relatório completo no console</li>
+      </ul>
+      <p><strong>Configurar:</strong></p>
+      <ul>
+        <li><code>pasta_saida</code> — caminho de destino (use sempre <code>/</code>, nunca <code>\</code>)</li>
+        <li><code>exportar_sem_texturas</code> — <code>True</code> para arquivo leve (recomendado, reaplica texturas JPG depois no visualizador), <code>False</code> para embutir tudo</li>
+      </ul>
+      <div class="script-notes" style="padding:0; background:none; border:none;">
+        <p><strong class="label-warn">⚠ Crítico:</strong> a compressão Draco está sempre ativada neste script (nível 6, quantization 14/10/12/10/12 — mesmos valores do painel padrão do Blender). Sem ela, o GLB fica muito mais pesado e o visualizador sofre.</p>
+      </div>
+    </div>
+    <pre><code class="script-code">import bpy
+import os
+
+# CONFIGURAR
+pasta_saida = "F:/TRAMPO/METAKOSMOS/3Ds/Stellantis/Fiat Toro/Exports/Acessorios/Acessorios visualizador/"
+
+# Se True, exporta sem texturas (arquivo bem mais leve para o visualizador)
+exportar_sem_texturas = True
+
+os.makedirs(pasta_saida, exist_ok=True)
+
+# Guarda seleção atual
+selecao_original = bpy.context.selected_objects[:]
+ativo_original = bpy.context.view_layer.objects.active
+
+def objeto_visivel(obj):
+    """Checa se o objeto está realmente visível no viewport."""
+    if obj.hide_get():
+        return False
+    if obj.hide_viewport:
+        return False
+    for collection in obj.users_collection:
+        def checar_collection(layer_coll, alvo):
+            if layer_coll.collection == alvo:
+                return not layer_coll.hide_viewport and not layer_coll.exclude
+            for child in layer_coll.children:
+                resultado = checar_collection(child, alvo)
+                if resultado is not None:
+                    return resultado
+            return None
+        
+        view_layer = bpy.context.view_layer
+        visivel_na_coll = checar_collection(view_layer.layer_collection, collection)
+        if visivel_na_coll is False:
+            return False
+    return True
+
+count = 0
+erros = []
+ignorados = 0
+
+export_image_format = 'NONE' if exportar_sem_texturas else 'AUTO'
+
+for obj in bpy.data.objects:
+    if obj.type != 'MESH':
+        continue
+    
+    if not objeto_visivel(obj):
+        ignorados += 1
+        continue
+    
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    
+    nome_arquivo = obj.name.replace('/', '_').replace('\\', '_').replace(':', '_')
+    caminho = os.path.join(pasta_saida, f"{nome_arquivo}.glb")
+    
+    try:
+        bpy.ops.export_scene.gltf(
+            filepath=caminho,
+            export_format='GLB',
+            use_selection=True,
+            export_image_format=export_image_format,
+            export_apply=True,
+            export_yup=True,
+            export_texcoords=True,
+            export_normals=True,
+            export_materials='EXPORT',
+            # Compressão Draco (mesmos valores do painel padrão do Blender)
+            export_draco_mesh_compression_enable=True,
+            export_draco_mesh_compression_level=6,
+            export_draco_position_quantization=14,
+            export_draco_normal_quantization=10,
+            export_draco_texcoord_quantization=12,
+            export_draco_color_quantization=10,
+            export_draco_generic_quantization=12
+        )
+        count += 1
+        print(f"Exportado: {nome_arquivo}.glb")
+    except Exception as e:
+        erros.append((obj.name, str(e)))
+        print(f"Erro em {obj.name}: {e}")
+
+# Restaura seleção
+bpy.ops.object.select_all(action='DESELECT')
+for obj in selecao_original:
+    obj.select_set(True)
+if ativo_original:
+    bpy.context.view_layer.objects.active = ativo_original
+
+print(f"\n=== Concluído ===")
+print(f"Exportados: {count}")
+print(f"Ignorados (ocultos): {ignorados}")
+print(f"Sem texturas: {exportar_sem_texturas}")
+print(f"Compressão Draco: ATIVA (nível 6)")
+if erros:
+    print(f"Erros: {len(erros)}")
+    for nome, erro in erros:
+        print(f"  - {nome}: {erro}")</code></pre>
+  </div>
+
+  <!-- =========== LIMPEZA COMPLETA DE MATERIAIS E SLOTS =========== -->
   <div class="script" data-cat="material" data-keywords="limpeza completa materiais slots duplicados consolidar instalod sufixo 001 002 mesmo nome">
     <div class="script-header">
       <div class="script-header-content">
@@ -989,7 +1118,7 @@ limpeza_completa_materiais()</code></pre>
         <li>Restaura a seleção original ao final</li>
         <li>Mostra relatório completo no console: exportados, ignorados e erros</li>
       </ul>
-      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code> com o caminho onde os FBX serão salvos.</p>
+      <p><strong>Configurar:</strong> ajuste <code>pasta_saida</code> com o caminho onde os FBX serão salvos (use sempre <code>/</code>, nunca <code>\</code> — evita erro de caminho no Windows).</p>
       <p><strong>Como usar:</strong> oculte na árvore os objetos que NÃO devem ser exportados antes de rodar.</p>
     </div>
     <pre><code class="script-code">import bpy
@@ -1299,6 +1428,7 @@ print(f"\nTotal: {count} objetos com animação removida.")</code></pre>
         <li><code>None</code> → exporta sem nenhuma textura (arquivo leve)</li>
       </ul>
       <p>Ideal quando você vai reaplicar as texturas em outro lugar (ex: visualizador 3D do mk|Studio).</p>
+      <p><strong>Lembrete importante:</strong> sempre ative a <strong>Compression (Draco)</strong> no painel de export ao exportar GLB — reduz drasticamente o tamanho do arquivo e é essencial para o visualizador web.</p>
     </div>
   </div>
 
